@@ -1,0 +1,225 @@
+﻿using forumAPItest.Models;
+using Newtonsoft.Json;
+using Newtonsoft.Json.Linq;
+using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Net;
+using System.Net.Http;
+using System.Web.Http;
+using System.Web.Http.Cors;
+
+namespace forumAPItest.Controllers
+{
+    public class APIController : ApiController
+    {
+        // GET: api/API
+
+        finaldbEntities db = new finaldbEntities();
+        int member =13;
+        
+        
+        public JObject Get()
+        {
+                              
+            var result = new
+            {
+
+                ftable = from n in db.forumBinding
+                         orderby n.forumContent.ForumContentID descending
+                         where n.forumContent.ForumDelete != "delete"
+                         select new
+                         {           
+                             chkPoPerson=n.forumMemberBinding.memberdb.mb_ID==member?true:false,                                               
+                             fID = n.forumContent.ForumContentID,                             
+                             fName = n.forumMemberBinding.memberdb.mb_employeeName,
+                             fPoNameID=n.forumMemberBinding.memberdb.mb_ID,
+                             fType = n.forumMemberBinding.forumType.Type,
+                             fDept = n.forumMemberBinding.memberdb.mb_employeeDeptID,
+                             fTitle = n.forumContent.ForumTitle,
+                             fContent = n.forumContent.ForumContent1,
+                             fdate = n.forumContent.ForumContentTime,
+                             fPic1 = n.forumContent.forumPicture.ForumPicture_one,
+                             fPic2 = n.forumContent.forumPicture.ForumPicture_two,
+                             fPic3 = n.forumContent.forumPicture.ForumPicture_three,
+                             fPic4 = n.forumContent.forumPicture.ForumPicture_four,
+                             fPic5 = n.forumContent.forumPicture.ForumPicture_five,
+                             message = new
+                             {
+                                 fmessage = from m in db.forumMessageBinding
+                                            where m.ForumContentID==n.ForumContentID
+                                            select new
+                                            {
+                                                chkMesPerson=m.forumMemberBinding.memberdb.mb_ID == member ? true : false,
+                                                fMID = m.FMB_ID,
+                                                fMesID=m.forumMemberBinding.memberdb.mb_ID,
+                                                fContent = m.ForumContentID,
+                                                fMName = m.forumMemberBinding.memberdb.mb_employeeName,
+                                                fMContent = m.forummessage.ForumMessageContent
+
+                                            }
+                             },
+                             Like = new
+                             {
+                                 flike = from p in db.forumLikebinding
+                                         where p.ForumContentID==n.ForumContentID
+                                         select new
+                                         {
+                                             chkLikePerson=p.forumMemberBinding.memberdb.mb_ID==member? true : false,
+                                             fName = p.forumMemberBinding.memberdb.mb_employeeName,
+                                             chkLikeID= p.forumMemberBinding.memberdb.mb_ID,
+                                             fContent = p.ForumContentID,
+                                             fLike = p.likeType.LikeType1
+                                         }
+                             }
+                         }
+
+            };
+
+            
+
+            string strJson = JsonConvert.SerializeObject(result, Formatting.Indented);
+            JObject o = JObject.Parse(strJson);
+
+            
+
+            //JObject o = new JObject();
+            //o["MyArray"] = array;
+            return o;
+        }
+
+        
+
+        // GET: api/API/5
+        public JObject Get(int id)
+        {
+            var result = new
+            {
+
+                ftable = from n in db.forumBinding
+                         orderby n.forumContent.ForumContentID descending
+                         where n.ForumContentID==id
+                         select new
+                         {
+                             chkPoPerson = n.forumMemberBinding.memberdb.mb_ID == member ? true : false,
+                             fID = n.forumContent.ForumContentID,
+                             fName = n.forumMemberBinding.memberdb.mb_employeeName,
+                             fPoNameID = n.forumMemberBinding.memberdb.mb_ID,
+                             fType = n.forumMemberBinding.forumType.Type,
+                             fDept = n.forumMemberBinding.memberdb.mb_employeeDeptID,
+                             fTitle = n.forumContent.ForumTitle,
+                             fContent = n.forumContent.ForumContent1,
+                             fdate = n.forumContent.ForumContentTime,
+                             fPic1 = n.forumContent.forumPicture.ForumPicture_one,
+                             fPic2 = n.forumContent.forumPicture.ForumPicture_two,
+                             fPic3 = n.forumContent.forumPicture.ForumPicture_three,
+                             fPic4 = n.forumContent.forumPicture.ForumPicture_four,
+                             fPic5 = n.forumContent.forumPicture.ForumPicture_five,
+                            
+                         }
+
+            };
+
+            string strJson = JsonConvert.SerializeObject(result, Formatting.Indented);
+            JObject o = JObject.Parse(strJson);
+
+            //JObject o = new JObject();
+            //o["MyArray"] = array;
+            return o;
+        }
+
+        // POST: api/API
+        [HttpPost]
+        //[EnableCors(origins: "http://mywebclient.azurewebsites.net", headers: "*", methods: "*")]
+        [EnableCors("*", "*", "*")]
+        public HttpResponseMessage Post([FromBody] JObject value)
+        {
+            try
+            {
+                string controllerName = ControllerContext.RouteData.Values["controller"].ToString();
+                cJsonModels model = new cJsonModels();
+                forumContent q = new forumContent();
+                forumBinding p = new forumBinding();
+                forumPicture r = new forumPicture();
+                //JObject jo = JObject.Parse(value);
+
+                q.ForumTitle = value["title"].ToString();
+                q.ForumContent1 = value["content"].ToString();
+                q.ForumContentTime = DateTime.Now.ToString("G");
+
+                db.forumContent.Add(q);
+                db.SaveChanges();
+
+                p.fmb_ID = member;
+                p.ForumContentID = q.ForumContentID;
+                db.forumBinding.Add(p);
+                db.SaveChanges();
+
+
+                var result = new
+                {
+                    STATUS = true,
+                    MSG = "成功",
+                };
+
+                return Request.CreateResponse(HttpStatusCode.OK, result);
+
+            }
+            catch(Exception ex)
+            {
+                throw ex;
+            }
+        }
+
+        // PUT: api/API/5
+        [HttpPut]
+        [EnableCors("*", "*", "*")]
+        public HttpResponseMessage Put(int id,[FromBody]JObject value)
+        {
+            string controllerName = ControllerContext.RouteData.Values["controller"].ToString();
+            var deleteforum = db.forumContent.FirstOrDefault(p => p.ForumContentID == id);
+            
+            var title = value["title"].ToString();
+            var content = value["content"].ToString();
+            var time = DateTime.Now.ToString("G");
+            if (deleteforum != null)
+            {
+                
+                
+                deleteforum.ForumTitle = title;
+                deleteforum.ForumContent1 = content;
+                deleteforum.ForumContentTime = time;
+                db.SaveChanges();
+            }
+            var result = new
+            {
+                STATUS = true,
+                MSG = "成功",
+            };
+
+            return Request.CreateResponse(HttpStatusCode.OK, result);
+        }
+
+        // DELETE: api/API/5
+        [HttpDelete]
+        [EnableCors("*", "*", "*")]
+        public HttpResponseMessage Delete(int id,[FromBody]JObject value)
+        {
+            string controllerName = ControllerContext.RouteData.Values["controller"].ToString();
+            forumContent deleteforum = db.forumContent.FirstOrDefault(p => p.ForumContentID == id);
+
+            if (deleteforum != null)
+            {               
+                deleteforum.ForumDelete = value["delete"].ToString();
+                db.SaveChanges();
+            }
+            var result = new
+            {
+                STATUS = true,
+                MSG = "成功",
+            };
+
+            return Request.CreateResponse(HttpStatusCode.OK, result);
+        }
+    }
+}
