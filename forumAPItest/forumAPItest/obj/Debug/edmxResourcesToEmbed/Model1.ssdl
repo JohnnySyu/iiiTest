@@ -7,6 +7,7 @@
     <Property Name="Blog_ID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
     <Property Name="BlogContent" Type="nvarchar" MaxLength="255" />
     <Property Name="BlogTitle" Type="nchar" MaxLength="10" />
+    <Property Name="Blogdate" Type="nvarchar" MaxLength="50" />
   </EntityType>
   <EntityType Name="blogBinding">
     <Key>
@@ -79,7 +80,6 @@
     <Property Name="ForumContentID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
     <Property Name="ForumTitle" Type="nvarchar" MaxLength="50" />
     <Property Name="ForumContent" Type="nvarchar" MaxLength="255" />
-    <Property Name="ForumPictureID" Type="int" />
     <Property Name="ForumContentTime" Type="nvarchar" MaxLength="50" />
     <Property Name="ForumDelete" Type="nchar" MaxLength="10" />
   </EntityType>
@@ -123,11 +123,8 @@
       <PropertyRef Name="ForumPictureID" />
     </Key>
     <Property Name="ForumPictureID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
-    <Property Name="ForumPicture_one" Type="nvarchar" MaxLength="255" />
-    <Property Name="ForumPicture_two" Type="nvarchar" MaxLength="255" />
-    <Property Name="ForumPicture_three" Type="nvarchar" MaxLength="255" />
-    <Property Name="ForumPicture_four" Type="nvarchar" MaxLength="255" />
-    <Property Name="ForumPicture_five" Type="nvarchar" MaxLength="255" />
+    <Property Name="ForumPicture" Type="varchar(max)" />
+    <Property Name="ForumContentID" Type="int" />
   </EntityType>
   <EntityType Name="forumType">
     <Key>
@@ -242,6 +239,16 @@
     <Property Name="Picture_URL_two" Type="nvarchar" MaxLength="50" />
     <Property Name="Picture_URL_three" Type="nvarchar" MaxLength="50" />
   </EntityType>
+  <EntityType Name="sysdiagrams">
+    <Key>
+      <PropertyRef Name="diagram_id" />
+    </Key>
+    <Property Name="name" Type="nvarchar" MaxLength="128" Nullable="false" />
+    <Property Name="principal_id" Type="int" Nullable="false" />
+    <Property Name="diagram_id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="version" Type="int" />
+    <Property Name="definition" Type="varbinary(max)" />
+  </EntityType>
   <Association Name="FK_blogBinding_blog">
     <End Role="blog" Type="Self.blog" Multiplicity="0..1" />
     <End Role="blogBinding" Type="Self.blogBinding" Multiplicity="*" />
@@ -323,18 +330,6 @@
       </Principal>
       <Dependent Role="forumBinding">
         <PropertyRef Name="fmb_ID" />
-      </Dependent>
-    </ReferentialConstraint>
-  </Association>
-  <Association Name="FK_forumContent_forumPicture">
-    <End Role="forumPicture" Type="Self.forumPicture" Multiplicity="0..1" />
-    <End Role="forumContent" Type="Self.forumContent" Multiplicity="*" />
-    <ReferentialConstraint>
-      <Principal Role="forumPicture">
-        <PropertyRef Name="ForumPictureID" />
-      </Principal>
-      <Dependent Role="forumContent">
-        <PropertyRef Name="ForumPictureID" />
       </Dependent>
     </ReferentialConstraint>
   </Association>
@@ -431,6 +426,18 @@
       </Principal>
       <Dependent Role="forumMessageBinding">
         <PropertyRef Name="ForumMessage_ID" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_forumPicture_forumContent">
+    <End Role="forumContent" Type="Self.forumContent" Multiplicity="0..1" />
+    <End Role="forumPicture" Type="Self.forumPicture" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="forumContent">
+        <PropertyRef Name="ForumContentID" />
+      </Principal>
+      <Dependent Role="forumPicture">
+        <PropertyRef Name="ForumContentID" />
       </Dependent>
     </ReferentialConstraint>
   </Association>
@@ -592,6 +599,7 @@
     <EntitySet Name="MembersType" EntityType="Self.MembersType" Schema="dbo" store:Type="Tables" />
     <EntitySet Name="productdb" EntityType="Self.productdb" Schema="dbo" store:Type="Tables" />
     <EntitySet Name="productPictureBinding" EntityType="Self.productPictureBinding" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="sysdiagrams" EntityType="Self.sysdiagrams" Schema="dbo" store:Type="Tables" />
     <AssociationSet Name="FK_blogBinding_blog" Association="Self.FK_blogBinding_blog">
       <End Role="blog" EntitySet="blog" />
       <End Role="blogBinding" EntitySet="blogBinding" />
@@ -619,10 +627,6 @@
     <AssociationSet Name="FK_forumBinding_forumMemberBinding" Association="Self.FK_forumBinding_forumMemberBinding">
       <End Role="forumMemberBinding" EntitySet="forumMemberBinding" />
       <End Role="forumBinding" EntitySet="forumBinding" />
-    </AssociationSet>
-    <AssociationSet Name="FK_forumContent_forumPicture" Association="Self.FK_forumContent_forumPicture">
-      <End Role="forumPicture" EntitySet="forumPicture" />
-      <End Role="forumContent" EntitySet="forumContent" />
     </AssociationSet>
     <AssociationSet Name="FK_forumLikebinding_forumContent" Association="Self.FK_forumLikebinding_forumContent">
       <End Role="forumContent" EntitySet="forumContent" />
@@ -655,6 +659,10 @@
     <AssociationSet Name="FK_forumMessageBinding_forummessage" Association="Self.FK_forumMessageBinding_forummessage">
       <End Role="forummessage" EntitySet="forummessage" />
       <End Role="forumMessageBinding" EntitySet="forumMessageBinding" />
+    </AssociationSet>
+    <AssociationSet Name="FK_forumPicture_forumContent" Association="Self.FK_forumPicture_forumContent">
+      <End Role="forumContent" EntitySet="forumContent" />
+      <End Role="forumPicture" EntitySet="forumPicture" />
     </AssociationSet>
     <AssociationSet Name="FK_Groupdb_GroupType" Association="Self.FK_Groupdb_GroupType">
       <End Role="GroupType" EntitySet="GroupType" />

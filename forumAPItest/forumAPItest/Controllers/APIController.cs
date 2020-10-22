@@ -15,13 +15,13 @@ namespace forumAPItest.Controllers
     {
         // GET: api/API
 
-        finaldbEntities db = new finaldbEntities();
+        finaldbEntities2 db = new finaldbEntities2();
         int member =13;
         
         
         public JObject Get()
         {
-                              
+
             var result = new
             {
 
@@ -29,22 +29,28 @@ namespace forumAPItest.Controllers
                          orderby n.forumContent.ForumContentID descending
                          where n.forumContent.ForumDelete != "delete"
                          select new
-                         {           
-                             chkPoPerson=n.forumMemberBinding.memberdb.mb_ID==member?true:false,                                               
-                             fID = n.forumContent.ForumContentID,                             
+                         {
+                             chkPoPerson = n.forumMemberBinding.memberdb.mb_ID == member ? true : false,
+                             fID = n.forumContent.ForumContentID,
                              fName = n.forumMemberBinding.memberdb.mb_employeeName,
-                             fPoNameID=n.forumMemberBinding.memberdb.mb_ID,
-                             fempPic=n.forumMemberBinding.memberdb.mb_employeePicture,
+                             fPoNameID = n.forumMemberBinding.memberdb.mb_ID,
+                             fempPic = n.forumMemberBinding.memberdb.mb_employeePicture,
                              fType = n.forumMemberBinding.forumType.Type,
                              fDept = n.forumMemberBinding.memberdb.mb_employeeDeptID,
                              fTitle = n.forumContent.ForumTitle,
                              fContent = n.forumContent.ForumContent1,
                              fdate = n.forumContent.ForumContentTime,
-                             fPic1 = n.forumContent.forumPicture.ForumPicture_one,
-                             fPic2 = n.forumContent.forumPicture.ForumPicture_two,
-                             fPic3 = n.forumContent.forumPicture.ForumPicture_three,
-                             fPic4 = n.forumContent.forumPicture.ForumPicture_four,
-                             fPic5 = n.forumContent.forumPicture.ForumPicture_five,
+
+                             picture = new
+                             {
+                                 pic = from t in db.forumPicture
+                                       where t.ForumContentID == n.forumContent.ForumContentID
+                                       select new
+                                       {
+                                           pic = t.ForumPicture1
+                                       }
+
+                             },
                              message = new
                              {
                                  fmessage = from m in db.forumMessageBinding
@@ -55,6 +61,7 @@ namespace forumAPItest.Controllers
                                                 fMID = m.FMB_ID,
                                                 fMesID=m.forumMemberBinding.memberdb.mb_ID,
                                                 fContent = m.ForumContentID,
+                                                fMesTime = m.forumContent.ForumContentTime,
                                                 fMName = m.forumMemberBinding.memberdb.mb_employeeName,
                                                 fMContent = m.forummessage.ForumMessageContent
 
@@ -111,11 +118,7 @@ namespace forumAPItest.Controllers
                              fTitle = n.forumContent.ForumTitle,
                              fContent = n.forumContent.ForumContent1,
                              fdate = n.forumContent.ForumContentTime,
-                             fPic1 = n.forumContent.forumPicture.ForumPicture_one,
-                             fPic2 = n.forumContent.forumPicture.ForumPicture_two,
-                             fPic3 = n.forumContent.forumPicture.ForumPicture_three,
-                             fPic4 = n.forumContent.forumPicture.ForumPicture_four,
-                             fPic5 = n.forumContent.forumPicture.ForumPicture_five,
+                             
                             
                          }
 
@@ -141,27 +144,32 @@ namespace forumAPItest.Controllers
                 cJsonModels model = new cJsonModels();
                 forumContent q = new forumContent();
                 forumBinding p = new forumBinding();
-                forumPicture r = new forumPicture();
+                forumMemberBinding m = new forumMemberBinding();
                 forumPicture pic = new forumPicture();
                 //JObject jo = JObject.Parse(value);
 
-                pic.ForumPicture_one = value["pic1"].ToString();
-                pic.ForumPicture_two = value["pic2"].ToString();
-                pic.ForumPicture_three = value["pic3"].ToString();
-                pic.ForumPicture_four = value["pic4"].ToString();
-                pic.ForumPicture_five = value["pic5"].ToString();
-                db.forumPicture.Add(pic);
+                m.ForumTypeID = 2;
+                m.mb_ID = member;
+                db.forumMemberBinding.Add(m);
                 db.SaveChanges();
 
                 q.ForumTitle = value["title"].ToString();
                 q.ForumContent1 = value["content"].ToString();
-                q.ForumContentTime = DateTime.Now.ToString("G");
-                q.ForumPictureID = pic.ForumPictureID;
-
+                q.ForumContentTime = DateTime.Now.ToString("G");           
                 db.forumContent.Add(q);
                 db.SaveChanges();
 
-                p.fmb_ID = member;
+                //for(var i = 1; i <= value.Count; i++)
+                //{
+                //    if(i<=value.Count-2)
+                //    {
+                pic.ForumPicture1 = value["pic1"].ToString();
+                pic.ForumContentID = q.ForumContentID;
+                db.forumPicture.Add(pic);
+                db.SaveChanges();
+                //}                   
+                //}                              
+                p.fmb_ID = m.ForumMemberBinding_ID;
                 p.ForumContentID = q.ForumContentID;
                 db.forumBinding.Add(p);
                 db.SaveChanges();

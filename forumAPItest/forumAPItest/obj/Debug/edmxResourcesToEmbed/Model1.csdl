@@ -7,6 +7,7 @@
     <Property Name="Blog_ID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
     <Property Name="BlogContent" Type="String" MaxLength="255" FixedLength="false" Unicode="true" />
     <Property Name="BlogTitle" Type="String" MaxLength="10" FixedLength="true" Unicode="true" />
+    <Property Name="Blogdate" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
     <NavigationProperty Name="blogBinding" Relationship="Self.FK_blogBinding_blog" FromRole="blog" ToRole="blogBinding" />
   </EntityType>
   <EntityType Name="blogBinding">
@@ -90,13 +91,12 @@
     <Property Name="ForumContentID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
     <Property Name="ForumTitle" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
     <Property Name="ForumContent1" Type="String" MaxLength="255" FixedLength="false" Unicode="true" />
-    <Property Name="ForumPictureID" Type="Int32" />
     <Property Name="ForumContentTime" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+    <Property Name="ForumDelete" Type="String" MaxLength="10" FixedLength="true" Unicode="true" />
     <NavigationProperty Name="forumBinding" Relationship="Self.FK_forumBinding_forumContent" FromRole="forumContent" ToRole="forumBinding" />
-    <NavigationProperty Name="forumPicture" Relationship="Self.FK_forumContent_forumPicture" FromRole="forumContent" ToRole="forumPicture" />
     <NavigationProperty Name="forumLikebinding" Relationship="Self.FK_forumLikebinding_forumContent" FromRole="forumContent" ToRole="forumLikebinding" />
     <NavigationProperty Name="forumMessageBinding" Relationship="Self.FK_forumMessageBinding_forumContent" FromRole="forumContent" ToRole="forumMessageBinding" />
-    <Property Name="ForumDelete" Type="String" MaxLength="10" FixedLength="true" Unicode="true" />
+    <NavigationProperty Name="forumPicture" Relationship="Self.FK_forumPicture_forumContent" FromRole="forumContent" ToRole="forumPicture" />
   </EntityType>
   <EntityType Name="forumLikebinding">
     <Key>
@@ -130,8 +130,8 @@
     <Property Name="ForumMessage_ID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
     <Property Name="ForumMessageContent" Type="String" MaxLength="255" FixedLength="false" Unicode="true" />
     <Property Name="ForumMessageTime" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
-    <NavigationProperty Name="forumMessageBinding" Relationship="Self.FK_forumMessageBinding_forummessage" FromRole="forummessage" ToRole="forumMessageBinding" />
     <Property Name="FourmContent_ID" Type="Int32" />
+    <NavigationProperty Name="forumMessageBinding" Relationship="Self.FK_forumMessageBinding_forummessage" FromRole="forummessage" ToRole="forumMessageBinding" />
   </EntityType>
   <EntityType Name="forumMessageBinding">
     <Key>
@@ -150,12 +150,9 @@
       <PropertyRef Name="ForumPictureID" />
     </Key>
     <Property Name="ForumPictureID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
-    <Property Name="ForumPicture_one" Type="String" MaxLength="255" FixedLength="false" Unicode="true" />
-    <Property Name="ForumPicture_two" Type="String" MaxLength="255" FixedLength="false" Unicode="true" />
-    <Property Name="ForumPicture_three" Type="String" MaxLength="255" FixedLength="false" Unicode="true" />
-    <Property Name="ForumPicture_four" Type="String" MaxLength="255" FixedLength="false" Unicode="true" />
-    <Property Name="ForumPicture_five" Type="String" MaxLength="255" FixedLength="false" Unicode="true" />
-    <NavigationProperty Name="forumContent" Relationship="Self.FK_forumContent_forumPicture" FromRole="forumPicture" ToRole="forumContent" />
+    <Property Name="ForumPicture1" Type="String" MaxLength="Max" FixedLength="false" Unicode="false" />
+    <Property Name="ForumContentID" Type="Int32" />
+    <NavigationProperty Name="forumContent" Relationship="Self.FK_forumPicture_forumContent" FromRole="forumPicture" ToRole="forumContent" />
   </EntityType>
   <EntityType Name="forumType">
     <Key>
@@ -296,6 +293,16 @@
     <Property Name="Picture_URL_three" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
     <NavigationProperty Name="productdb" Relationship="Self.FK_productdb_productPictureBinding" FromRole="productPictureBinding" ToRole="productdb" />
   </EntityType>
+  <EntityType Name="sysdiagrams">
+    <Key>
+      <PropertyRef Name="diagram_id" />
+    </Key>
+    <Property Name="name" Type="String" MaxLength="128" FixedLength="false" Unicode="true" Nullable="false" />
+    <Property Name="principal_id" Type="Int32" Nullable="false" />
+    <Property Name="diagram_id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="version" Type="Int32" />
+    <Property Name="definition" Type="Binary" MaxLength="Max" FixedLength="false" />
+  </EntityType>
   <Association Name="FK_blogBinding_blog">
     <End Role="blog" Type="Self.blog" Multiplicity="0..1" />
     <End Role="blogBinding" Type="Self.blogBinding" Multiplicity="*" />
@@ -392,18 +399,6 @@
       </Dependent>
     </ReferentialConstraint>
   </Association>
-  <Association Name="FK_forumContent_forumPicture">
-    <End Role="forumPicture" Type="Self.forumPicture" Multiplicity="0..1" />
-    <End Role="forumContent" Type="Self.forumContent" Multiplicity="*" />
-    <ReferentialConstraint>
-      <Principal Role="forumPicture">
-        <PropertyRef Name="ForumPictureID" />
-      </Principal>
-      <Dependent Role="forumContent">
-        <PropertyRef Name="ForumPictureID" />
-      </Dependent>
-    </ReferentialConstraint>
-  </Association>
   <Association Name="FK_forumLikebinding_forumContent">
     <End Role="forumContent" Type="Self.forumContent" Multiplicity="0..1" />
     <End Role="forumLikebinding" Type="Self.forumLikebinding" Multiplicity="*" />
@@ -424,6 +419,18 @@
         <PropertyRef Name="ForumContentID" />
       </Principal>
       <Dependent Role="forumMessageBinding">
+        <PropertyRef Name="ForumContentID" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_forumPicture_forumContent">
+    <End Role="forumContent" Type="Self.forumContent" Multiplicity="0..1" />
+    <End Role="forumPicture" Type="Self.forumPicture" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="forumContent">
+        <PropertyRef Name="ForumContentID" />
+      </Principal>
+      <Dependent Role="forumPicture">
         <PropertyRef Name="ForumContentID" />
       </Dependent>
     </ReferentialConstraint>
@@ -620,7 +627,7 @@
       </Dependent>
     </ReferentialConstraint>
   </Association>
-  <EntityContainer Name="finaldbEntities" annotation:LazyLoadingEnabled="true">
+  <EntityContainer Name="finaldbEntities2" annotation:LazyLoadingEnabled="true">
     <EntitySet Name="blog" EntityType="Self.blog" />
     <EntitySet Name="blogBinding" EntityType="Self.blogBinding" />
     <EntitySet Name="departmentdb" EntityType="Self.departmentdb" />
@@ -646,6 +653,7 @@
     <EntitySet Name="MembersType" EntityType="Self.MembersType" />
     <EntitySet Name="productdb" EntityType="Self.productdb" />
     <EntitySet Name="productPictureBinding" EntityType="Self.productPictureBinding" />
+    <EntitySet Name="sysdiagrams" EntityType="Self.sysdiagrams" />
     <AssociationSet Name="FK_blogBinding_blog" Association="Self.FK_blogBinding_blog">
       <End Role="blog" EntitySet="blog" />
       <End Role="blogBinding" EntitySet="blogBinding" />
@@ -678,10 +686,6 @@
       <End Role="forumMemberBinding" EntitySet="forumMemberBinding" />
       <End Role="forumBinding" EntitySet="forumBinding" />
     </AssociationSet>
-    <AssociationSet Name="FK_forumContent_forumPicture" Association="Self.FK_forumContent_forumPicture">
-      <End Role="forumPicture" EntitySet="forumPicture" />
-      <End Role="forumContent" EntitySet="forumContent" />
-    </AssociationSet>
     <AssociationSet Name="FK_forumLikebinding_forumContent" Association="Self.FK_forumLikebinding_forumContent">
       <End Role="forumContent" EntitySet="forumContent" />
       <End Role="forumLikebinding" EntitySet="forumLikebinding" />
@@ -689,6 +693,10 @@
     <AssociationSet Name="FK_forumMessageBinding_forumContent" Association="Self.FK_forumMessageBinding_forumContent">
       <End Role="forumContent" EntitySet="forumContent" />
       <End Role="forumMessageBinding" EntitySet="forumMessageBinding" />
+    </AssociationSet>
+    <AssociationSet Name="FK_forumPicture_forumContent" Association="Self.FK_forumPicture_forumContent">
+      <End Role="forumContent" EntitySet="forumContent" />
+      <End Role="forumPicture" EntitySet="forumPicture" />
     </AssociationSet>
     <AssociationSet Name="FK_forumLikebinding_forumLikebinding" Association="Self.FK_forumLikebinding_forumLikebinding">
       <End Role="forumMemberBinding" EntitySet="forumMemberBinding" />

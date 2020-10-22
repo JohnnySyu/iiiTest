@@ -13,7 +13,7 @@ namespace forumAPItest.Controllers
 
     public class MessageAPIController : ApiController
     {
-        finaldbEntities db = new finaldbEntities();
+        finaldbEntities2 db = new finaldbEntities2();
         int member = 13;
         // GET: api/MessageAPI
         //public IEnumerable<string> Get()

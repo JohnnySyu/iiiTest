@@ -13,10 +13,10 @@ namespace forumAPItest
     using System.Data.Entity;
     using System.Data.Entity.Infrastructure;
     
-    public partial class finaldbEntities : DbContext
+    public partial class finaldbEntities2 : DbContext
     {
-        public finaldbEntities()
-            : base("name=finaldbEntities")
+        public finaldbEntities2()
+            : base("name=finaldbEntities2")
         {
         }
     
@@ -50,5 +50,6 @@ namespace forumAPItest
         public virtual DbSet<MembersType> MembersType { get; set; }
         public virtual DbSet<productdb> productdb { get; set; }
         public virtual DbSet<productPictureBinding> productPictureBinding { get; set; }
+        public virtual DbSet<sysdiagrams> sysdiagrams { get; set; }
     }
 }

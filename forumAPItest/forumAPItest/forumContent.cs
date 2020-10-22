@@ -20,21 +20,22 @@ namespace forumAPItest
             this.forumBinding = new HashSet<forumBinding>();
             this.forumLikebinding = new HashSet<forumLikebinding>();
             this.forumMessageBinding = new HashSet<forumMessageBinding>();
+            this.forumPicture = new HashSet<forumPicture>();
         }
     
         public int ForumContentID { get; set; }
         public string ForumTitle { get; set; }
         public string ForumContent1 { get; set; }
-        public Nullable<int> ForumPictureID { get; set; }
         public string ForumContentTime { get; set; }
         public string ForumDelete { get; set; }
     
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<forumBinding> forumBinding { get; set; }
-        public virtual forumPicture forumPicture { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<forumLikebinding> forumLikebinding { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<forumMessageBinding> forumMessageBinding { get; set; }
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
+        public virtual ICollection<forumPicture> forumPicture { get; set; }
     }
 }

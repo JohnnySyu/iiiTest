@@ -14,20 +14,10 @@ namespace forumAPItest
     
     public partial class forumPicture
     {
-        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2214:DoNotCallOverridableMethodsInConstructors")]
-        public forumPicture()
-        {
-            this.forumContent = new HashSet<forumContent>();
-        }
-    
         public int ForumPictureID { get; set; }
-        public string ForumPicture_one { get; set; }
-        public string ForumPicture_two { get; set; }
-        public string ForumPicture_three { get; set; }
-        public string ForumPicture_four { get; set; }
-        public string ForumPicture_five { get; set; }
+        public string ForumPicture1 { get; set; }
+        public Nullable<int> ForumContentID { get; set; }
     
-        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
-        public virtual ICollection<forumContent> forumContent { get; set; }
+        public virtual forumContent forumContent { get; set; }
     }
 }
