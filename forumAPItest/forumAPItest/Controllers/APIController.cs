@@ -34,6 +34,7 @@ namespace forumAPItest.Controllers
                              fID = n.forumContent.ForumContentID,                             
                              fName = n.forumMemberBinding.memberdb.mb_employeeName,
                              fPoNameID=n.forumMemberBinding.memberdb.mb_ID,
+                             fempPic=n.forumMemberBinding.memberdb.mb_employeePicture,
                              fType = n.forumMemberBinding.forumType.Type,
                              fDept = n.forumMemberBinding.memberdb.mb_employeeDeptID,
                              fTitle = n.forumContent.ForumTitle,
@@ -141,11 +142,21 @@ namespace forumAPItest.Controllers
                 forumContent q = new forumContent();
                 forumBinding p = new forumBinding();
                 forumPicture r = new forumPicture();
+                forumPicture pic = new forumPicture();
                 //JObject jo = JObject.Parse(value);
+
+                pic.ForumPicture_one = value["pic1"].ToString();
+                pic.ForumPicture_two = value["pic2"].ToString();
+                pic.ForumPicture_three = value["pic3"].ToString();
+                pic.ForumPicture_four = value["pic4"].ToString();
+                pic.ForumPicture_five = value["pic5"].ToString();
+                db.forumPicture.Add(pic);
+                db.SaveChanges();
 
                 q.ForumTitle = value["title"].ToString();
                 q.ForumContent1 = value["content"].ToString();
                 q.ForumContentTime = DateTime.Now.ToString("G");
+                q.ForumPictureID = pic.ForumPictureID;
 
                 db.forumContent.Add(q);
                 db.SaveChanges();
@@ -155,6 +166,7 @@ namespace forumAPItest.Controllers
                 db.forumBinding.Add(p);
                 db.SaveChanges();
 
+                
 
                 var result = new
                 {
