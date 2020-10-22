@@ -130,7 +130,6 @@
     <Property Name="ForumMessage_ID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
     <Property Name="ForumMessageContent" Type="String" MaxLength="255" FixedLength="false" Unicode="true" />
     <Property Name="ForumMessageTime" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
-    <Property Name="FourmContent_ID" Type="Int32" />
     <NavigationProperty Name="forumMessageBinding" Relationship="Self.FK_forumMessageBinding_forummessage" FromRole="forummessage" ToRole="forumMessageBinding" />
   </EntityType>
   <EntityType Name="forumMessageBinding">
@@ -627,7 +626,7 @@
       </Dependent>
     </ReferentialConstraint>
   </Association>
-  <EntityContainer Name="finaldbEntities2" annotation:LazyLoadingEnabled="true">
+  <EntityContainer Name="finaldbEntities1" annotation:LazyLoadingEnabled="true">
     <EntitySet Name="blog" EntityType="Self.blog" />
     <EntitySet Name="blogBinding" EntityType="Self.blogBinding" />
     <EntitySet Name="departmentdb" EntityType="Self.departmentdb" />

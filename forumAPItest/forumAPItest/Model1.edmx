@@ -112,7 +112,6 @@
           <Property Name="ForumMessage_ID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
           <Property Name="ForumMessageContent" Type="nvarchar" MaxLength="255" />
           <Property Name="ForumMessageTime" Type="nvarchar" MaxLength="50" />
-          <Property Name="FourmContent_ID" Type="int" />
         </EntityType>
         <EntityType Name="forumMessageBinding">
           <Key>
@@ -849,7 +848,6 @@
           <Property Name="ForumMessage_ID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
           <Property Name="ForumMessageContent" Type="String" MaxLength="255" FixedLength="false" Unicode="true" />
           <Property Name="ForumMessageTime" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
-          <Property Name="FourmContent_ID" Type="Int32" />
           <NavigationProperty Name="forumMessageBinding" Relationship="Self.FK_forumMessageBinding_forummessage" FromRole="forummessage" ToRole="forumMessageBinding" />
         </EntityType>
         <EntityType Name="forumMessageBinding">
@@ -1346,7 +1344,7 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
-        <EntityContainer Name="finaldbEntities2" annotation:LazyLoadingEnabled="true">
+        <EntityContainer Name="finaldbEntities1" annotation:LazyLoadingEnabled="true">
           <EntitySet Name="blog" EntityType="Self.blog" />
           <EntitySet Name="blogBinding" EntityType="Self.blogBinding" />
           <EntitySet Name="departmentdb" EntityType="Self.departmentdb" />
@@ -1487,7 +1485,7 @@
     <!-- C-S mapping content -->
     <edmx:Mappings>
       <Mapping Space="C-S" xmlns="http://schemas.microsoft.com/ado/2009/11/mapping/cs">
-        <EntityContainerMapping StorageEntityContainer="finaldbModelStoreContainer" CdmEntityContainer="finaldbEntities2">
+        <EntityContainerMapping StorageEntityContainer="finaldbModelStoreContainer" CdmEntityContainer="finaldbEntities1">
           <EntitySetMapping Name="blog">
             <EntityTypeMapping TypeName="finaldbModel.blog">
               <MappingFragment StoreEntitySet="blog">
@@ -1600,7 +1598,6 @@
                 <ScalarProperty Name="ForumMessage_ID" ColumnName="ForumMessage_ID" />
                 <ScalarProperty Name="ForumMessageContent" ColumnName="ForumMessageContent" />
                 <ScalarProperty Name="ForumMessageTime" ColumnName="ForumMessageTime" />
-                <ScalarProperty Name="FourmContent_ID" ColumnName="FourmContent_ID" />
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>

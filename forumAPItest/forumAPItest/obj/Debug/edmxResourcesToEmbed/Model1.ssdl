@@ -107,7 +107,6 @@
     <Property Name="ForumMessage_ID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
     <Property Name="ForumMessageContent" Type="nvarchar" MaxLength="255" />
     <Property Name="ForumMessageTime" Type="nvarchar" MaxLength="50" />
-    <Property Name="FourmContent_ID" Type="int" />
   </EntityType>
   <EntityType Name="forumMessageBinding">
     <Key>

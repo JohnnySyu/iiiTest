@@ -15,7 +15,7 @@ namespace forumAPItest.Controllers
     {
         // GET: api/API
 
-        finaldbEntities2 db = new finaldbEntities2();
+        finaldbEntities1 db = new finaldbEntities1();
         int member =13;
         
         

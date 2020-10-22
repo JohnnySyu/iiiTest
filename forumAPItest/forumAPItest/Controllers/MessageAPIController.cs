@@ -13,7 +13,7 @@ namespace forumAPItest.Controllers
 
     public class MessageAPIController : ApiController
     {
-        finaldbEntities2 db = new finaldbEntities2();
+        finaldbEntities1 db = new finaldbEntities1();
         int member = 13;
         // GET: api/MessageAPI
         //public IEnumerable<string> Get()
@@ -89,6 +89,7 @@ namespace forumAPItest.Controllers
             if (deleteforumMessage != null)
             {
                 db.forummessage.Remove(deleteforumMessage);
+                
                 db.forumMessageBinding.Remove(deleteforumMesBind);
                 db.SaveChanges();
 

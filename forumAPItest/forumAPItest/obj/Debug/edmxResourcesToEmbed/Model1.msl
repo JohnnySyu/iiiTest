@@ -1,6 +1,6 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
 <Mapping Space="C-S" xmlns="http://schemas.microsoft.com/ado/2009/11/mapping/cs">
-  <EntityContainerMapping StorageEntityContainer="finaldbModelStoreContainer" CdmEntityContainer="finaldbEntities2">
+  <EntityContainerMapping StorageEntityContainer="finaldbModelStoreContainer" CdmEntityContainer="finaldbEntities1">
     <EntitySetMapping Name="blog">
       <EntityTypeMapping TypeName="finaldbModel.blog">
         <MappingFragment StoreEntitySet="blog">
@@ -113,7 +113,6 @@
           <ScalarProperty Name="ForumMessage_ID" ColumnName="ForumMessage_ID" />
           <ScalarProperty Name="ForumMessageContent" ColumnName="ForumMessageContent" />
           <ScalarProperty Name="ForumMessageTime" ColumnName="ForumMessageTime" />
-          <ScalarProperty Name="FourmContent_ID" ColumnName="FourmContent_ID" />
         </MappingFragment>
       </EntityTypeMapping>
     </EntitySetMapping>

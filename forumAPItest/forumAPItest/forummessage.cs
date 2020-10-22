@@ -23,7 +23,6 @@ namespace forumAPItest
         public int ForumMessage_ID { get; set; }
         public string ForumMessageContent { get; set; }
         public string ForumMessageTime { get; set; }
-        public Nullable<int> FourmContent_ID { get; set; }
     
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<forumMessageBinding> forumMessageBinding { get; set; }

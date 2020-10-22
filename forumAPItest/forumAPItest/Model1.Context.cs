@@ -13,10 +13,10 @@ namespace forumAPItest
     using System.Data.Entity;
     using System.Data.Entity.Infrastructure;
     
-    public partial class finaldbEntities2 : DbContext
+    public partial class finaldbEntities1 : DbContext
     {
-        public finaldbEntities2()
-            : base("name=finaldbEntities2")
+        public finaldbEntities1()
+            : base("name=finaldbEntities1")
         {
         }
     
