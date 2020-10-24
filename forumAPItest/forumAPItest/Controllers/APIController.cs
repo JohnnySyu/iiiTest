@@ -61,7 +61,7 @@ namespace forumAPItest.Controllers
                                                 fMID = m.FMB_ID,
                                                 fMesID=m.forumMemberBinding.memberdb.mb_ID,
                                                 fContent = m.ForumContentID,
-                                                fMesTime = m.forumContent.ForumContentTime,
+                                                fMesTime = m.forummessage.ForumMessageTime,
                                                 fMName = m.forumMemberBinding.memberdb.mb_employeeName,
                                                 fMContent = m.forummessage.ForumMessageContent
 
@@ -75,9 +75,10 @@ namespace forumAPItest.Controllers
                                          {
                                              chkLikePerson=p.forumMemberBinding.memberdb.mb_ID==member? true : false,
                                              fName = p.forumMemberBinding.memberdb.mb_employeeName,
+                                             fLikeID = p.ForumLike_ID,
                                              chkLikeID= p.forumMemberBinding.memberdb.mb_ID,
                                              fContent = p.ForumContentID,
-                                             fLike = p.likeType.LikeType1
+                                             fLike = p.Like_ID
                                          }
                              }
                          }
