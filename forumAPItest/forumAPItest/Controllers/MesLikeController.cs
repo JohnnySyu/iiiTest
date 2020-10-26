@@ -34,30 +34,49 @@ namespace forumAPItest.Controllers
         {
            
             try
-            {                              
+            {
+
+                int contentID = int.Parse(value["contentID"].ToString());
                 forumLikebinding L = new forumLikebinding();
                 forumMemberBinding m = new forumMemberBinding();
 
+                var q = (from p in db.forumLikebinding
+                         where p.forumMemberBinding.mb_ID == memberdb && p.ForumContentID == contentID
+                         select p).Count();
 
-                m.mb_ID = memberdb;
-                m.ForumTypeID = 5; //like
-                db.forumMemberBinding.Add(m);
-                db.SaveChanges();
-
-
-                L.fmb_ID = m.ForumMemberBinding_ID;
-                L.ForumContentID = int.Parse(value["contentID"].ToString());
-                L.Like_ID = 1;
-                db.forumLikebinding.Add(L);
-                db.SaveChanges();
-
-                var result = new
+                if(q < 1)
                 {
-                    STATUS = true,
-                    MSG = "成功",
-                };
+                    m.mb_ID = memberdb;
+                    m.ForumTypeID = 5; //like
+                    db.forumMemberBinding.Add(m);
+                    db.SaveChanges();
 
-                return Request.CreateResponse(HttpStatusCode.OK, result);
+
+                    L.fmb_ID = m.ForumMemberBinding_ID;
+                    L.ForumContentID = contentID;
+                    L.Like_ID = 1;
+                    db.forumLikebinding.Add(L);
+                    db.SaveChanges();
+
+                    var result = new
+                    {
+                        STATUS = true,
+                        MSG = "成功",
+                    };
+
+                    return Request.CreateResponse(HttpStatusCode.OK, result);
+                }
+                else
+                {
+                    var result2 = new
+                    {
+                        STATUS = true,
+                        MSG = "按過讚了",
+                    };
+
+                    return Request.CreateResponse(HttpStatusCode.OK, result2);
+                }
+               
             }                  
             catch (Exception ex)
             {

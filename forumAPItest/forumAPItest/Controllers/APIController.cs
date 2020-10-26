@@ -85,8 +85,8 @@ namespace forumAPItest.Controllers
                                          {
                                              chkLikePerson = p.forumMemberBinding.memberdb.mb_ID == member ? true : false,
                                              fName = p.forumMemberBinding.memberdb.mb_employeeName,
-                                             fLikeID = p.ForumLike_ID,
-                                             chkLikeID = p.forumMemberBinding.memberdb.mb_ID,
+                                             fNameID = p.forumMemberBinding.memberdb.mb_ID,
+                                             fLikeID = p.ForumLike_ID,                                            
                                              fContent = p.ForumContentID,
                                              fLike = p.Like_ID,
 

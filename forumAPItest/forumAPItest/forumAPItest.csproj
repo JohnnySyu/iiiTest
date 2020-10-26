@@ -138,6 +138,7 @@
       <DependentUpon>Model1.tt</DependentUpon>
     </Compile>
     <Compile Include="Controllers\APIController.cs" />
+    <Compile Include="Controllers\blogbackController.cs" />
     <Compile Include="Controllers\MessageAPIController.cs" />
     <Compile Include="Controllers\MesLikeController.cs" />
     <Compile Include="departmentdb.cs">
