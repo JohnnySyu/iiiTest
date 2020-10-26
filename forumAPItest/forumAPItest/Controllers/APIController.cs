@@ -17,7 +17,15 @@ namespace forumAPItest.Controllers
 
         finaldbEntities1 db = new finaldbEntities1();
         int member =13;
-        
+
+        public string like_count(int? contentID)
+        {
+            var p = (from n in db.forumLikebinding
+                     where n.Like_ID == 1 && n.ForumContentID==contentID
+                     select n).Count();
+            return p.ToString();
+        } 
+       
         
         public JObject Get()
         {
@@ -41,12 +49,14 @@ namespace forumAPItest.Controllers
                              fContent = n.forumContent.ForumContent1,
                              fdate = n.forumContent.ForumContentTime,
 
+
                              picture = new
                              {
                                  pic = from t in db.forumPicture
                                        where t.ForumContentID == n.forumContent.ForumContentID
                                        select new
                                        {
+                                           picID = t.ForumPictureID,
                                            pic = t.ForumPicture1
                                        }
 
@@ -54,12 +64,12 @@ namespace forumAPItest.Controllers
                              message = new
                              {
                                  fmessage = from m in db.forumMessageBinding
-                                            where m.ForumContentID==n.ForumContentID
+                                            where m.ForumContentID == n.ForumContentID
                                             select new
                                             {
-                                                chkMesPerson=m.forumMemberBinding.memberdb.mb_ID == member ? true : false,
+                                                chkMesPerson = m.forumMemberBinding.memberdb.mb_ID == member ? true : false,
                                                 fMID = m.FMB_ID,
-                                                fMesID=m.forumMemberBinding.memberdb.mb_ID,
+                                                fMesID = m.forumMemberBinding.memberdb.mb_ID,
                                                 fContent = m.ForumContentID,
                                                 fMesTime = m.forummessage.ForumMessageTime,
                                                 fMName = m.forumMemberBinding.memberdb.mb_employeeName,
@@ -70,21 +80,30 @@ namespace forumAPItest.Controllers
                              Like = new
                              {
                                  flike = from p in db.forumLikebinding
-                                         where p.ForumContentID==n.ForumContentID
+                                         where p.ForumContentID == n.ForumContentID
                                          select new
                                          {
-                                             chkLikePerson=p.forumMemberBinding.memberdb.mb_ID==member? true : false,
+                                             chkLikePerson = p.forumMemberBinding.memberdb.mb_ID == member ? true : false,
                                              fName = p.forumMemberBinding.memberdb.mb_employeeName,
                                              fLikeID = p.ForumLike_ID,
-                                             chkLikeID= p.forumMemberBinding.memberdb.mb_ID,
+                                             chkLikeID = p.forumMemberBinding.memberdb.mb_ID,
                                              fContent = p.ForumContentID,
-                                             fLike = p.Like_ID
+                                             fLike = p.Like_ID,
+
                                          }
-                             }
+                             },
+
+                             Likecount = new
+                             {
+                                 flikecount = (from p in db.forumLikebinding
+                                              where p.ForumContentID == n.ForumContentID && p.Like_ID==1
+                                              select p).LongCount()
+            }
                          }
 
             };
 
+            
             
 
             string strJson = JsonConvert.SerializeObject(result, Formatting.Indented);
@@ -160,16 +179,16 @@ namespace forumAPItest.Controllers
                 db.forumContent.Add(q);
                 db.SaveChanges();
 
-                //for(var i = 1; i <= value.Count; i++)
-                //{
-                //    if(i<=value.Count-2)
-                //    {
-                pic.ForumPicture1 = value["pic1"].ToString();
-                pic.ForumContentID = q.ForumContentID;
-                db.forumPicture.Add(pic);
-                db.SaveChanges();
-                //}                   
-                //}                              
+                for (var i = 1; i <= value.Count; i++)
+                {
+                    if (i <= value.Count - 2)
+                    {
+                        pic.ForumPicture1 = value["pic"+i].ToString();
+                        pic.ForumContentID = q.ForumContentID;
+                        db.forumPicture.Add(pic);
+                        db.SaveChanges();
+                    }
+                }
                 p.fmb_ID = m.ForumMemberBinding_ID;
                 p.ForumContentID = q.ForumContentID;
                 db.forumBinding.Add(p);
