@@ -70,8 +70,34 @@ namespace forumAPItest.Controllers
         }
 
         // POST: api/blogback
-        public void Post([FromBody]string value)
+        [HttpPost]
+        [EnableCors("*", "*", "*")]
+        public HttpResponseMessage Post([FromBody] JObject value)
         {
+            blog blogadd = new blog();
+            blogBinding blogBinding = new blogBinding();
+
+            blogadd.BlogTitle= value["title"].ToString();
+            blogadd.BlogContent= value["content"].ToString();
+            blogadd.Blogdate = DateTime.Now.ToString("G");
+            db.blog.Add(blogadd);
+            db.SaveChanges();
+
+            blogBinding.Memberdb_ID= int.Parse(value["member"].ToString());
+            blogBinding.Blog_ID = blogadd.Blog_ID;
+            db.blogBinding.Add(blogBinding);
+            db.SaveChanges();
+
+
+            var result = new
+            {
+                STATUS = true,
+                MSG = "成功",
+            };
+
+            return Request.CreateResponse(HttpStatusCode.OK, result);
+
+
         }
 
         // PUT: api/blogback/5
