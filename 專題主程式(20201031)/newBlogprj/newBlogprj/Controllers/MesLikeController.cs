@@ -69,9 +69,16 @@ namespace newBlogprj.Controllers
                 }
                 else
                 {
+                    var likeIDed = (from p in db.forumLikebinding
+                                    where p.forumMemberBinding.mb_ID == memberdb && p.ForumContentID == contentID
+                                    select p).FirstOrDefault();
+
+                    int likeIDed2 = likeIDed.ForumLike_ID;
+
                     var result2 = new
                     {
-                        STATUS = true,
+                        likeID = likeIDed2,
+                        STATUS = false,
                         MSG = "按過讚了",
                     };
 

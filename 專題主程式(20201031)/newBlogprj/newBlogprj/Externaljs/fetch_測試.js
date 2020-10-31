@@ -35,7 +35,7 @@ const content_tpl = tpl => {
     return ` 
     <div class="media main_BCC">
         <figure class="figure_range">
-            <img src="assets/img/blog/匿名頭像1.jpg" class="align-self-start mr-3" alt="...">
+            <img src="../assets/img/blog/匿名頭像1.jpg" class="align-self-start mr-3" alt="...">
             <figcaption>${tpl.fName}</figcaption>
         </figure>
         <div class="media-body">

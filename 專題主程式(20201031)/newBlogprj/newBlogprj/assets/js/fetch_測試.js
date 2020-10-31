@@ -33,19 +33,19 @@ const sendHttpRequest = (method, url, data) => {  //fetch的上半部整理成fu
 //------get template-------
 const content_tpl = tpl => {
     return ` 
-    <div class="media main_BCC">
+   <div class="media main_BCC">
         <figure class="figure_range">
-            <img src="../assets/img/匿名頭像1.jpg" class="align-self-start mr-3" alt="...">
+            <img src="../assets/img/blog/匿名頭像1.jpg" class="align-self-start mr-3" alt="...">
             <figcaption>${tpl.fName}</figcaption>
         </figure>
         <div class="media-body">
             <div class="icon_right">
                 <h5 class="mt-0" id="title">標題 : ${tpl.fTitle}</h5>
                 <div id="btn_container" data-id="${tpl.fID}" style="display:">
-                    <a href="localhost:44347/api/API/${tpl.fID}" id="edit${tpl.fID}" onclick="getData_edit(${tpl.fID})" data-toggle="modal" data-target="#editMessage">
+                    <a href="localhost:44310/api/API/${tpl.fID}" id="edit${tpl.fID}" onclick="getData_edit(${tpl.fID})" data-toggle="modal" data-target="#editMessage">
                         <i class="fas fa-edit button_margin" style="color:gray" data-target="#editMessage"></i>
                     </a>
-                    <a href="localhost:44347/api/API/${tpl.fID}" id="delete${tpl.fID}" data-id ="" onclick="getData_delete(${tpl.fID})" data-toggle="modal">
+                    <a href="localhost:44310/api/API/${tpl.fID}" id="delete${tpl.fID}" data-id ="" onclick="getData_delete(${tpl.fID})" data-toggle="modal">
                         <i class="fas fa-trash button_margin" style="color:gray"></i>
                     </a> 
                     </div>
@@ -54,7 +54,7 @@ const content_tpl = tpl => {
                
     
             <p>文章類型 : ${tpl.fType}</p> <!--第${tpl.fID}篇-->
-            <lable class="like_design">按讚數 <span class="badge badge-light" id="like${tpl.fID}">4</span></lable>             
+            <lable class="like_design">按讚數 <span class="badge badge-light" id="like${tpl.fID}">${tpl.Likecount.flikecount}</span></lable>             
             <p></p>
             <p id="content">${tpl.fContent}</p>
             ${tpl.picture.pic.map(p => `
@@ -73,7 +73,7 @@ const content_tpl = tpl => {
             </div>
             <div class="push_right">
             <button type="submit" class="btn btn-secondary button_margin"  id="post-Mbtn${tpl.fID}" onclick="sendMessageData(${tpl.fID})">留言</button>               
-            <button type="submit" class="btn btn-secondary button_margin" style="width:118px;height:44px"  id="post-Likebtn${tpl.fID}" onclick="checkLike(${tpl.fID})">讚</button>    
+            <button type="submit" class="btn btn-secondary button_margin" style="width:118px;height:44px"  id="post-Likebtn${tpl.fID}" onclick="addLike(${tpl.fID})">讚</button>    
             </div>            
             <P></P> 
             
@@ -81,7 +81,7 @@ const content_tpl = tpl => {
             `           
             <div class="response_range">
                 <figure>
-                    <img src="../assets/img/頭像2.jpg" class="align-self-start mr-3" alt="...">
+                    <img src="assets/img/blog/頭像2.jpg" class="align-self-start mr-3" alt="...">
                     <figcaption>${o.fMName}</figcaption>
                 </figure>
                 <div>
