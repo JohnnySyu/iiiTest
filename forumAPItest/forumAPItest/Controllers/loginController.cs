@@ -13,6 +13,9 @@ namespace forumAPItest.Controllers
     public class loginController : ApiController
     {
         // GET: api/login
+
+
+        finaldbEntities1 db = new finaldbEntities1();
         public IEnumerable<string> Get()
         {
             return new string[] { "value1", "value2" };
@@ -40,17 +43,34 @@ namespace forumAPItest.Controllers
                 accountbase64Decoded = Encoding.UTF8.GetString(accountdata);
 
                 string passwordbase64Decoded;
-                byte[] passworddata = Convert.FromBase64String(account);
+                byte[] passworddata = Convert.FromBase64String(password);
                 passwordbase64Decoded = Encoding.UTF8.GetString(passworddata);
 
-               
+                var q = (from p in db.memberdb
+                         where p.mb_employeeName == accountbase64Decoded
+                         select p).FirstOrDefault();
+
+               if (passwordbase64Decoded == "test" && accountbase64Decoded==q.mb_employeeName)
+                {
                     var result = new
                     {
                         STATUS = true,
                         MSG = "成功",
-                    };                  
-              
-                return Request.CreateResponse(HttpStatusCode.OK, result);
+                    };
+
+                    return Request.CreateResponse(HttpStatusCode.OK, result);
+                }
+                else
+                {
+                    var result2 = new
+                    {
+                        STATUS = false,
+                        MSG = "失敗",
+                    };
+
+                    return Request.CreateResponse(HttpStatusCode.OK, result2);
+                }
+                    
             }
             catch (Exception ex)
             {

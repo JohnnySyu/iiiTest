@@ -24,10 +24,10 @@
       <p>請登入員工後台管理系統</p>
     </div>
     <form>
-      <input type="text" id="login" class="fadeIn second" name="login" placeholder="login">
-      <input type="text" id="password" class="fadeIn third" name="login" placeholder="password">
+      <input type="text" id="login" class="fadeIn second" >
+      <input type="text" id="password" class="fadeIn third"  >
       
-      <input type="submit" class="fadeIn fourth" value="Log In"  onclick="gotologin()">
+      <input type="submit"  value="Log In"  onclick="gotologin()">
     </form>
     <div id="formFooter">
       <a class="underlineHover" href="#">Forgot Password? Call #6666</a>
@@ -39,17 +39,27 @@
 <script>
 
     
-
     function gotologin(){     
             axios.post('https://localhost:44310/api/login', {
             account: Base64.encode(document.querySelector('#login').value),
             password: Base64.encode(document.querySelector('#password').value),
-            })
-             .then(function (result) {
-            console.log(result);
+            })           
+              .then(function (result) {
+                console.log(result.data.MSG);
+                if(result.data.STATUS ==true){
+                  document.querySelector('#login').value="";
+                  document.querySelector('#password').value="";
+                    location.href="index.html"
+
+                }
+                else{
+                  document.querySelector('#login').value="";
+                  document.querySelector('#password').value="";
+                  alert("帳號密碼錯誤")
+                }
             })
             .catch(function (error) {
-            console.log(error);
+            
             });
             }
 
