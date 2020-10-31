@@ -43,16 +43,26 @@ namespace forumAPItest.Controllers
                                       Count = g.Count()
                                   };
 
-          
 
-           
+            var fforumTimeCount = from q in db.forumContent
+                                  group q by q.ForumContentTime.Substring(0,10) into g
+                                  select new
+                                  {
+                                      time = g.Key,
+                                      Count = g.Count()
+                                  };
+
             
+
+
+
             var result = new
             {
                 fblogmemberCount,
                 fmemberCount,
                 ffourmTypeCount,
-                
+                fforumTimeCount,
+
             };
 
             string strJson = JsonConvert.SerializeObject(result, Formatting.Indented);

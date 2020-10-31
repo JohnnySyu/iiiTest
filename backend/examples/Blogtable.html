@@ -66,7 +66,7 @@
                     <li>
                         <a class="nav-link" href="index.html">
                             <i class="nc-icon nc-chart-pie-35"></i>
-                            <p>Dashboard</p>
+                            <p>主頁</p>
                         </a>
                     </li>
                     <li>
@@ -136,8 +136,14 @@
                                 </div>
                                 <div class="card-body table-full-width table-responsive">
                                     <table class="table table-hover table-striped">
-                                        <form name = 'form' action = '#' method='post' class="formtxt">
-                                            <p id="membertxt">發文人:<br/><input type="text" id="memberedit"></p><br/>
+                                        <!-- <button id="addBtn" onclick="addNew()">新增資料</button> -->
+                                        <form name = 'form' action = '#' method='post' class="formtxt" id="addNew">
+                                            <p>人員:<br/>
+                                                <input list="browsers" name="myBrowser" id="memberedit"></label>
+                                                <datalist id="browsers">
+                                                  
+                                                </datalist>
+                                            <br/>
                                             <p>標題:<br/><input type="text" id="titleedit"></p><br/>
                                             <p>內容: 
                                             <textarea name="contenttxt" id="contenttxt" rows="10" cols="80"></textarea></p>            
@@ -149,13 +155,13 @@
                                         </form><br/><br/>
                                         <thead>
                                             <th>ID</th>
-                                            <input type="text" class="search_txt" placeholder="還沒做" id="srchtxt_ID">
+                                            <!-- <input type="text" class="search_txt" placeholder="還沒做" id="srchtxt_ID"> -->
                                             <th>Title</th>
                                             <input type="text" class="search_txt" placeholder="請填寫Title" id="srchtxt_Title">
                                             <th>Countent</th>
                                             <input type="text" class="search_txt" placeholder="請填寫Content" id="srchtxt_Content">
                                             <th>CreatTime</th>
-                                            <input type="text" class="search_txt" placeholder="還沒做" id="srchtxt_CreatTime">
+                                            <!-- <input type="text" class="search_txt" placeholder="還沒做" id="srchtxt_CreatTime"> -->
                                             <button><i class="fas fa-search" onclick="`${getDataKey()}`"></i></button>
                                             <th>修改</th>
                                             <th>刪除</th>
@@ -208,11 +214,14 @@
 <script src="../assets/js/light-bootstrap-dashboard.js?v=2.0.0 " type="text/javascript"></script>
 <!-- Light Bootstrap Dashboard DEMO methods, don't include it in your project! -->
 <script src="../assets/js/demo.js"></script>
+<link rel="stylesheet" href="//code.jquery.com/ui/1.10.4/themes/smoothness/jquery-ui.css">
+<script src="https://code.jquery.com/jquery-3.5.1.js" integrity="sha256-QWo7LDvxbWT2tbbQ97B53yJnYU3WhH/C8ycbRAkjPDc=" crossorigin="anonymous"></script>
+<script src="https://code.jquery.com/ui/1.12.1/jquery-ui.js" integrity="sha256-T0Vest3yCU7pafRw9r+settMBX6JkKN06dqBnpQ8d30=" crossorigin="anonymous"></script>
 <script>
-    const srchtxt_ID =document.querySelector('#srchtxt_ID').value;
+    // const srchtxt_ID =document.querySelector('#srchtxt_ID').value;
     const srchtxt_Title=document.querySelector('#srchtxt_Title'),
-    srchtxt_Content=document.querySelector('#srchtxt_Content'),
-    srchtxt_CreatTime=document.querySelector('#srchtxt_CreatTime').value;
+    srchtxt_Content=document.querySelector('#srchtxt_Content');
+    // srchtxt_CreatTime=document.querySelector('#srchtxt_CreatTime').value;
     
     const request = new XMLHttpRequest();   
     jQuery.support.cors = true;
@@ -261,8 +270,8 @@ const getDataKey = () => {
                 str += content_tpl(i);              
             })
             $('tbody').html(str);       
-            console.log(srchtxt_Title.value)  
-            console.log(srchtxt_Content.value)  
+            // console.log(srchtxt_Title.value)  
+            // console.log(srchtxt_Content.value)  
         })
         
 };
@@ -288,7 +297,7 @@ const getData_delete = (id) => {
 
 const putEditData = (id) => {
     // currentPost.iID
-
+    var check = confirm("確定要修改此筆資料嗎?");
     const title = document.querySelector(`#title_${id}`).innerText
     const content=document.querySelector(`#content_${id}`).innerText;
     
@@ -334,14 +343,50 @@ const content_tpl = tpl => {
                     <td contentEditable="true" id="title_${tpl.id}">${tpl.title}</td>
                     <td contentEditable="true" id="content_${tpl.id}">${tpl.Content}</td>
                     <td >${tpl.time}</td>                                               
-                    <td><button>修改<i class="fas fa-edit" onclick="putEditData(${tpl.id})"></i></button></td>                  
-                    <td><button>刪除<i class="fas fa-trash-alt" onclick="getData_delete(${tpl.id})"></i></button></td></tr>`;
+                    <td><button onclick="putEditData(${tpl.id})">修改<i class="fas fa-edit" ></i></button></td>                  
+                    <td><button onclick="getData_delete(${tpl.id})">刪除<i class="fas fa-trash-alt" ></i></button></td></tr>`;
 };
 
 request.onload = getData();
 
 srchtxt_Title.addEventListener('change',(event) => {request.onload = getData()});
 srchtxt_Content.addEventListener('change',(event) => {request.onload = getData()});
+
+let availableTags;
+const string1=[];
+let selectTags;
+const string2=[];
+$.ajax({
+    url:"https://localhost:44310/api/blogback",
+    type:"GET",
+    success:function(response){
+        response.ftable.forEach((v, i) => 
+        {       
+            string1[i]=v.title
+        })
+        //console.log(string1)
+        availableTags = string1.splice(",");
+        $("#srchtxt_Title").autocomplete({
+            source: availableTags
+        });
+        response.allName.forEach((v, i) => 
+        {       
+            string2[i]=v.name
+        });
+        //console.log(string2)
+        selectTags = string2.splice(",");
+        
+        selectTags.forEach(element => 
+        {//console.log(element);
+            document.getElementById('browsers').innerHTML += `<option value="${element}">${element}</option>`
+        });
+    }
+});
+
+
+
+
+
 
 
 </script>

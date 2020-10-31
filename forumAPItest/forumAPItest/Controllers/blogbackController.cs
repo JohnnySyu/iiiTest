@@ -24,13 +24,20 @@ namespace forumAPItest.Controllers
                              id = n.Blog_ID,
                              title = n.blog.BlogTitle,
                              Content = n.blog.BlogContent,
-                             time = n.blog.Blogdate
+                             time = n.blog.Blogdate,
                          };
+
+            var allName = from m in db.memberdb
+                          select new
+                          {
+                              name = m.mb_employeeName
+                          };
 
 
             var result = new
             {
-                ftable
+                ftable,
+                allName,
             };
 
             string strJson = JsonConvert.SerializeObject(result, Formatting.Indented);
@@ -51,7 +58,8 @@ namespace forumAPItest.Controllers
                              id = n.Blog_ID,
                              title = n.blog.BlogTitle,
                              Content = n.blog.BlogContent,
-                             time = n.blog.Blogdate
+                             time = n.blog.Blogdate,
+                             name = n.memberdb.mb_employeeName
                          };
             //if (!String.IsNullOrEmpty(titletxt))
             //{
@@ -83,7 +91,11 @@ namespace forumAPItest.Controllers
             db.blog.Add(blogadd);
             db.SaveChanges();
 
-            blogBinding.Memberdb_ID= int.Parse(value["member"].ToString());
+
+            string name = value["member"].ToString();
+            var nameID = db.memberdb.FirstOrDefault(p => p.mb_employeeName == name);
+                     
+            blogBinding.Memberdb_ID= nameID.mb_ID;
             blogBinding.Blog_ID = blogadd.Blog_ID;
             db.blogBinding.Add(blogBinding);
             db.SaveChanges();
