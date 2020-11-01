@@ -230,7 +230,8 @@
     return fetch(url, {
         method: method,
         body: JSON.stringify(data),
-        headers: data ? { 'Content-Type': 'application/json', } : {} //{}裡面可放物件//三元表達式
+        headers: data ? { 'Content-Type': 'application/json', } : {Authorization: 'Bearer ' + localStorage.getItem("token")} ,
+       //{}裡面可放物件//三元表達式
     })  //get data  
         .then(response => {
             if (response.status >= 400) {       //參考xml httprequest對於錯誤的處理方法

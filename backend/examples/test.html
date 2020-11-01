@@ -16,11 +16,32 @@
     <input type="text" id="login">
     <input type="text" id="password">
     <input type="submit" onclick="gotologin()" value="456">
-   
+   <script>
+function gotologin(){     
+            axios.post('https://localhost:44310/api/Token',          
+            {
+            account: document.querySelector('#login').value,
+            password: document.querySelector('#password').value,
+            })           
+            .then(function (data) {
+              console.log(data.data.token)
+                if (data.data.Result ==true) {
+                  location.href="index.html"
+                  alert("我好帥")
+                  localStorage.setItem("token", data.data.token)
+                } else {
+                  alert("帳號密碼錯誤")
+                }
+            })
+         
+}
+
+
+   </script>
     
 
 
-    <script>
+    <!-- <script>
         function gotologin(){     
             axios.post('https://localhost:44310/api/login', {
             account: Base64.encode(document.querySelector('#login').value),
@@ -37,6 +58,6 @@
             });
             }
 
-    </script>
+    </script> -->
 </body>
 </html>

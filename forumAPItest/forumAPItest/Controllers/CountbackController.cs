@@ -1,4 +1,5 @@
-﻿using Newtonsoft.Json;
+﻿using forumAPItest.Models;
+using Newtonsoft.Json;
 using Newtonsoft.Json.Linq;
 using System;
 using System.Collections.Generic;
@@ -16,6 +17,7 @@ namespace forumAPItest.Controllers
     {
         // GET: api/Countback
         finaldbEntities1 db = new finaldbEntities1();
+        [JwtAuthActionFilte]
         public JObject Get()
         {
             var fblogmemberCount = from p in db.blogBinding

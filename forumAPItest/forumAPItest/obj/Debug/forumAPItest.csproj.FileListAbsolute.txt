@@ -292,3 +292,4 @@ C:\Users\User\Desktop\iiiTest\forumAPItest\forumAPItest\obj\Debug\forumAPItest.c
 C:\Users\User\Desktop\iiiTest\forumAPItest\forumAPItest\obj\Debug\forumAPItest.csproj.CopyComplete
 C:\Users\User\Desktop\iiiTest\forumAPItest\forumAPItest\obj\Debug\forumAPItest.dll
 C:\Users\User\Desktop\iiiTest\forumAPItest\forumAPItest\obj\Debug\forumAPItest.pdb
+C:\Users\Johnny\Desktop\專題git\forumAPItest\forumAPItest\bin\jose-jwt.dll

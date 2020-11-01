@@ -200,9 +200,11 @@
     const fforumTimeCountlabelsData=[]
     const fforumTimeCountdatasetsData=[]
     
-        axios.get('https://localhost:44310/api/Countback')
+        axios.get('https://localhost:44310/api/Countback',{
+            headers: {Authorization: 'Bearer ' + localStorage.getItem("token")},
+        })      
         .then(function (response) {
-     
+       
          response.data.fblogmemberCount.forEach((v, i) => 
         { 
         fblogmemberCountlabelsData[i]=v.member

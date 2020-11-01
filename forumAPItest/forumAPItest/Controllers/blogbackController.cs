@@ -1,4 +1,5 @@
-﻿using Newtonsoft.Json;
+﻿using forumAPItest.Models;
+using Newtonsoft.Json;
 using Newtonsoft.Json.Linq;
 using System;
 using System.Collections.Generic;
@@ -14,6 +15,8 @@ namespace forumAPItest.Controllers
     {
         // GET: api/blogback
         finaldbEntities1 db = new finaldbEntities1();
+
+        [JwtAuthActionFilte]
         public JObject Get()
         {
 
