@@ -143,7 +143,9 @@
     <Compile Include="Controllers\APIController.cs" />
     <Compile Include="Controllers\blogbackController.cs" />
     <Compile Include="Controllers\CountbackController.cs" />
+    <Compile Include="Controllers\forumbackController.cs" />
     <Compile Include="Controllers\loginController.cs" />
+    <Compile Include="Controllers\memberbackController.cs" />
     <Compile Include="Controllers\MessageAPIController.cs" />
     <Compile Include="Controllers\MesLikeController.cs" />
     <Compile Include="Controllers\TokenController.cs" />

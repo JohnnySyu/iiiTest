@@ -1,4 +1,5 @@
 ﻿using forumAPItest.Models;
+using Newtonsoft.Json;
 using Newtonsoft.Json.Linq;
 using System;
 using System.Collections.Generic;
@@ -15,17 +16,55 @@ namespace forumAPItest.Controllers
     {
         finaldbEntities1 db = new finaldbEntities1();
         int member = 13;
-        // GET: api/MessageAPI
-        //public IEnumerable<string> Get()
-        //{
-        //    return new string[] { "value1", "value2" };
-        //}
 
-        //// GET: api/MessageAPI/5
-        //public string Get(int id)
-        //{
-        //    return "value";
-        //}
+        public JObject Get(int id)
+        {
+            var result = new
+            {
+
+                ftable = from n in db.forumBinding
+                         orderby n.forumContent.ForumContentID descending
+                         where n.ForumContentID == id
+                         select new
+                         {
+                             chkPoPerson = n.forumMemberBinding.memberdb.mb_ID == member ? true : false,
+                             fID = n.forumContent.ForumContentID,
+                             fName = n.forumMemberBinding.memberdb.mb_employeeName,
+                             fPoNameID = n.forumMemberBinding.memberdb.mb_ID,
+                             fType = n.forumMemberBinding.forumType.Type,
+                             fDept = n.forumMemberBinding.memberdb.mb_employeeDeptID,
+                             fTitle = n.forumContent.ForumTitle,
+                             fContent = n.forumContent.ForumContent1,
+                             fdate = n.forumContent.ForumContentTime,
+
+                             message = new
+                             {
+                                 fmessage = from m in db.forumMessageBinding
+                                            where m.ForumContentID == n.ForumContentID
+                                            select new
+                                            {
+                                                chkMesPerson = m.forumMemberBinding.memberdb.mb_ID == member ? true : false,
+                                                fMID = m.ForumMessage_ID,
+                                                fMesID = m.forumMemberBinding.memberdb.mb_ID,
+                                                fContent = m.ForumContentID,
+                                                fMesTime = m.forummessage.ForumMessageTime,
+                                                fMName = m.forumMemberBinding.memberdb.mb_employeeName,
+                                                fMContent = m.forummessage.ForumMessageContent
+
+                                            }
+                             },
+
+                         }
+
+            };
+
+            string strJson = JsonConvert.SerializeObject(result, Formatting.Indented);
+            JObject o = JObject.Parse(strJson);
+
+            //JObject o = new JObject();
+            //o["MyArray"] = array;
+            return o;
+        }
 
         [HttpPost]
         [EnableCors("*", "*", "*")]
