@@ -1,5 +1,9 @@
+<<<<<<< HEAD
 ﻿using forumAPItest.Models;
 using Newtonsoft.Json;
+=======
+﻿using Newtonsoft.Json;
+>>>>>>> origin/master
 using Newtonsoft.Json.Linq;
 using System;
 using System.Collections.Generic;
@@ -9,13 +13,19 @@ using System.Net.Http;
 using System.Web.Http;
 using System.Web.Http.Cors;
 
+<<<<<<< HEAD
 
+=======
+>>>>>>> origin/master
 namespace forumAPItest.Controllers
 {
     public class eventgController : ApiController
     {
         finaldbEntities1 db = new finaldbEntities1();
+<<<<<<< HEAD
         [JwtAuthActionFilte]
+=======
+>>>>>>> origin/master
         public JObject Get()
         {
             var result = new
@@ -93,7 +103,11 @@ namespace forumAPItest.Controllers
         }
 
         // POST: api/event
+<<<<<<< HEAD
         public HttpResponseMessage Post([FromBody] JObject value)
+=======
+        public HttpResponseMessage Post([FromBody]JObject value)
+>>>>>>> origin/master
         {
 
             string controllerName = ControllerContext.RouteData.Values["controller"].ToString();
@@ -138,7 +152,11 @@ namespace forumAPItest.Controllers
         // PUT: api/event/5
         [HttpPut]
         [EnableCors("*", "*", "*")]
+<<<<<<< HEAD
         public HttpResponseMessage Put(int id, [FromBody] JObject value)
+=======
+        public HttpResponseMessage Put(int id, [FromBody]JObject value)
+>>>>>>> origin/master
         {
             //string eventg= ControllerContext.RouteData.Values["eventg"].ToString();
             var editevent = db.Event.FirstOrDefault(p => p.Event_ID == id);
@@ -203,5 +221,8 @@ namespace forumAPItest.Controllers
         }
 
     }
+<<<<<<< HEAD
 
+=======
+>>>>>>> origin/master
 }

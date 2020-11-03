@@ -1,5 +1,9 @@
+<<<<<<< HEAD
 ﻿using forumAPItest.Models;
 using Newtonsoft.Json;
+=======
+﻿using Newtonsoft.Json;
+>>>>>>> origin/master
 using Newtonsoft.Json.Linq;
 using System;
 using System.Collections.Generic;
@@ -13,16 +17,23 @@ namespace forumAPItest.Controllers
 {
     public class evevntbookingController : ApiController
     {
+<<<<<<< HEAD
         // GET: api/evevntbooking
         finaldbEntities1 db = new finaldbEntities1();
      
+=======
+        finaldbEntities1 db = new finaldbEntities1();
+>>>>>>> origin/master
         public IEnumerable<string> Get()
         {
             return new string[] { "value1", "value2" };
         }
 
         // GET: api/evevntbooking/5
+<<<<<<< HEAD
         [JwtAuthActionFilte]
+=======
+>>>>>>> origin/master
         public JObject Get(int id)
         {
             var result = new
@@ -45,7 +56,11 @@ namespace forumAPItest.Controllers
         // POST: api/evevntbooking
         [HttpPost]
         [EnableCors("*", "*", "*")]
+<<<<<<< HEAD
         public HttpResponseMessage Post([FromBody] JObject value)
+=======
+        public HttpResponseMessage Post([FromBody]JObject value)
+>>>>>>> origin/master
         {
             EventBooking editeventbooking = new EventBooking();
             var neweventid = value["neweventid"].ToString();
@@ -73,7 +88,11 @@ namespace forumAPItest.Controllers
         // PUT: api/evevntbooking/5
         [HttpPut]
         [EnableCors("*", "*", "*")]
+<<<<<<< HEAD
         public HttpResponseMessage Put(int id, [FromBody] JObject value)
+=======
+        public HttpResponseMessage Put(int id, [FromBody]JObject value)
+>>>>>>> origin/master
         {
             var editeventbooking = db.EventBooking.FirstOrDefault(p => p.mb_ID == id);
             var bookingdate = value["bookingdate"].ToString();
@@ -113,6 +132,10 @@ namespace forumAPItest.Controllers
             };
 
             return Request.CreateResponse(HttpStatusCode.OK, result);
+<<<<<<< HEAD
+=======
+
+>>>>>>> origin/master
         }
     }
 }
