@@ -1,6 +1,8 @@
 ﻿using Newtonsoft.Json.Linq;
 using System;
 using System.Collections.Generic;
+using System.Drawing;
+using System.IO;
 using System.Linq;
 using System.Net;
 using System.Net.Http;
@@ -35,6 +37,9 @@ namespace forumAPItest.Controllers
 
             try
             {
+
+
+
                 string account = value["account"].ToString();
                 string password = value["password"].ToString();
 

@@ -1,0 +1,293 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<edmx:Edmx Version="3.0" xmlns:edmx="http://schemas.microsoft.com/ado/2009/11/edmx">
+  <!-- EF Runtime content -->
+  <edmx:Runtime>
+    <!-- SSDL content -->
+    <edmx:StorageModels>
+      <Schema Namespace="voteModel.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2012" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+        <EntityType Name="memberVoteitem">
+          <Key>
+            <PropertyRef Name="memberVoteID" />
+          </Key>
+          <Property Name="memberVoteID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="memberID" Type="int" />
+          <Property Name="itemsID" Type="int" />
+        </EntityType>
+        <EntityType Name="viteItem">
+          <Key>
+            <PropertyRef Name="itemsID" />
+          </Key>
+          <Property Name="itemsID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="items" Type="nvarchar" MaxLength="50" />
+          <Property Name="titleID" Type="int" />
+        </EntityType>
+        <EntityType Name="voteMember">
+          <Key>
+            <PropertyRef Name="memberID" />
+          </Key>
+          <Property Name="memberID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="memberName" Type="nvarchar" MaxLength="50" />
+        </EntityType>
+        <EntityType Name="voteTitle">
+          <Key>
+            <PropertyRef Name="titleID" />
+          </Key>
+          <Property Name="titleID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="title" Type="nvarchar" MaxLength="50" />
+          <Property Name="startTime" Type="nvarchar" MaxLength="50" />
+          <Property Name="endTime" Type="nvarchar" MaxLength="50" />
+          <Property Name="memberID" Type="int" />
+        </EntityType>
+        <Association Name="FK_memberVote_viteItem">
+          <End Role="viteItem" Type="Self.viteItem" Multiplicity="0..1" />
+          <End Role="memberVoteitem" Type="Self.memberVoteitem" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="viteItem">
+              <PropertyRef Name="itemsID" />
+            </Principal>
+            <Dependent Role="memberVoteitem">
+              <PropertyRef Name="itemsID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_memberVote_voteMember">
+          <End Role="voteMember" Type="Self.voteMember" Multiplicity="0..1" />
+          <End Role="memberVoteitem" Type="Self.memberVoteitem" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="voteMember">
+              <PropertyRef Name="memberID" />
+            </Principal>
+            <Dependent Role="memberVoteitem">
+              <PropertyRef Name="memberID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_viteItem_voteTitle">
+          <End Role="voteTitle" Type="Self.voteTitle" Multiplicity="0..1" />
+          <End Role="viteItem" Type="Self.viteItem" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="voteTitle">
+              <PropertyRef Name="titleID" />
+            </Principal>
+            <Dependent Role="viteItem">
+              <PropertyRef Name="titleID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_voteTitle_voteMember">
+          <End Role="voteMember" Type="Self.voteMember" Multiplicity="1" />
+          <End Role="voteTitle" Type="Self.voteTitle" Multiplicity="0..1" />
+          <ReferentialConstraint>
+            <Principal Role="voteMember">
+              <PropertyRef Name="memberID" />
+            </Principal>
+            <Dependent Role="voteTitle">
+              <PropertyRef Name="titleID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <EntityContainer Name="voteModelStoreContainer">
+          <EntitySet Name="memberVoteitem" EntityType="Self.memberVoteitem" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="viteItem" EntityType="Self.viteItem" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="voteMember" EntityType="Self.voteMember" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="voteTitle" EntityType="Self.voteTitle" Schema="dbo" store:Type="Tables" />
+          <AssociationSet Name="FK_memberVote_viteItem" Association="Self.FK_memberVote_viteItem">
+            <End Role="viteItem" EntitySet="viteItem" />
+            <End Role="memberVoteitem" EntitySet="memberVoteitem" />
+          </AssociationSet>
+          <AssociationSet Name="FK_memberVote_voteMember" Association="Self.FK_memberVote_voteMember">
+            <End Role="voteMember" EntitySet="voteMember" />
+            <End Role="memberVoteitem" EntitySet="memberVoteitem" />
+          </AssociationSet>
+          <AssociationSet Name="FK_viteItem_voteTitle" Association="Self.FK_viteItem_voteTitle">
+            <End Role="voteTitle" EntitySet="voteTitle" />
+            <End Role="viteItem" EntitySet="viteItem" />
+          </AssociationSet>
+          <AssociationSet Name="FK_voteTitle_voteMember" Association="Self.FK_voteTitle_voteMember">
+            <End Role="voteMember" EntitySet="voteMember" />
+            <End Role="voteTitle" EntitySet="voteTitle" />
+          </AssociationSet>
+        </EntityContainer>
+      </Schema>
+    </edmx:StorageModels>
+    <!-- CSDL content -->
+    <edmx:ConceptualModels>
+      <Schema Namespace="voteModel" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
+        <EntityType Name="memberVoteitem">
+          <Key>
+            <PropertyRef Name="memberVoteID" />
+          </Key>
+          <Property Name="memberVoteID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="memberID" Type="Int32" />
+          <Property Name="itemsID" Type="Int32" />
+          <NavigationProperty Name="viteItem" Relationship="Self.FK_memberVote_viteItem" FromRole="memberVoteitem" ToRole="viteItem" />
+          <NavigationProperty Name="voteMember" Relationship="Self.FK_memberVote_voteMember" FromRole="memberVoteitem" ToRole="voteMember" />
+        </EntityType>
+        <EntityType Name="viteItem">
+          <Key>
+            <PropertyRef Name="itemsID" />
+          </Key>
+          <Property Name="itemsID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="items" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="titleID" Type="Int32" />
+          <NavigationProperty Name="memberVoteitem" Relationship="Self.FK_memberVote_viteItem" FromRole="viteItem" ToRole="memberVoteitem" />
+          <NavigationProperty Name="voteTitle" Relationship="Self.FK_viteItem_voteTitle" FromRole="viteItem" ToRole="voteTitle" />
+        </EntityType>
+        <EntityType Name="voteMember">
+          <Key>
+            <PropertyRef Name="memberID" />
+          </Key>
+          <Property Name="memberID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="memberName" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <NavigationProperty Name="memberVoteitem" Relationship="Self.FK_memberVote_voteMember" FromRole="voteMember" ToRole="memberVoteitem" />
+          <NavigationProperty Name="voteTitle" Relationship="Self.FK_voteTitle_voteMember" FromRole="voteMember" ToRole="voteTitle" />
+        </EntityType>
+        <EntityType Name="voteTitle">
+          <Key>
+            <PropertyRef Name="titleID" />
+          </Key>
+          <Property Name="titleID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="title" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="startTime" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="endTime" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="memberID" Type="Int32" />
+          <NavigationProperty Name="viteItem" Relationship="Self.FK_viteItem_voteTitle" FromRole="voteTitle" ToRole="viteItem" />
+          <NavigationProperty Name="voteMember" Relationship="Self.FK_voteTitle_voteMember" FromRole="voteTitle" ToRole="voteMember" />
+        </EntityType>
+        <Association Name="FK_memberVote_viteItem">
+          <End Role="viteItem" Type="Self.viteItem" Multiplicity="0..1" />
+          <End Role="memberVoteitem" Type="Self.memberVoteitem" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="viteItem">
+              <PropertyRef Name="itemsID" />
+            </Principal>
+            <Dependent Role="memberVoteitem">
+              <PropertyRef Name="itemsID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_memberVote_voteMember">
+          <End Role="voteMember" Type="Self.voteMember" Multiplicity="0..1" />
+          <End Role="memberVoteitem" Type="Self.memberVoteitem" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="voteMember">
+              <PropertyRef Name="memberID" />
+            </Principal>
+            <Dependent Role="memberVoteitem">
+              <PropertyRef Name="memberID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_viteItem_voteTitle">
+          <End Role="voteTitle" Type="Self.voteTitle" Multiplicity="0..1" />
+          <End Role="viteItem" Type="Self.viteItem" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="voteTitle">
+              <PropertyRef Name="titleID" />
+            </Principal>
+            <Dependent Role="viteItem">
+              <PropertyRef Name="titleID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_voteTitle_voteMember">
+          <End Role="voteMember" Type="Self.voteMember" Multiplicity="1" />
+          <End Role="voteTitle" Type="Self.voteTitle" Multiplicity="0..1" />
+          <ReferentialConstraint>
+            <Principal Role="voteMember">
+              <PropertyRef Name="memberID" />
+            </Principal>
+            <Dependent Role="voteTitle">
+              <PropertyRef Name="titleID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <EntityContainer Name="voteEntities" annotation:LazyLoadingEnabled="true">
+          <EntitySet Name="memberVoteitem" EntityType="Self.memberVoteitem" />
+          <EntitySet Name="viteItem" EntityType="Self.viteItem" />
+          <EntitySet Name="voteMember" EntityType="Self.voteMember" />
+          <EntitySet Name="voteTitle" EntityType="Self.voteTitle" />
+          <AssociationSet Name="FK_memberVote_viteItem" Association="Self.FK_memberVote_viteItem">
+            <End Role="viteItem" EntitySet="viteItem" />
+            <End Role="memberVoteitem" EntitySet="memberVoteitem" />
+          </AssociationSet>
+          <AssociationSet Name="FK_memberVote_voteMember" Association="Self.FK_memberVote_voteMember">
+            <End Role="voteMember" EntitySet="voteMember" />
+            <End Role="memberVoteitem" EntitySet="memberVoteitem" />
+          </AssociationSet>
+          <AssociationSet Name="FK_viteItem_voteTitle" Association="Self.FK_viteItem_voteTitle">
+            <End Role="voteTitle" EntitySet="voteTitle" />
+            <End Role="viteItem" EntitySet="viteItem" />
+          </AssociationSet>
+          <AssociationSet Name="FK_voteTitle_voteMember" Association="Self.FK_voteTitle_voteMember">
+            <End Role="voteMember" EntitySet="voteMember" />
+            <End Role="voteTitle" EntitySet="voteTitle" />
+          </AssociationSet>
+        </EntityContainer>
+      </Schema>
+    </edmx:ConceptualModels>
+    <!-- C-S mapping content -->
+    <edmx:Mappings>
+      <Mapping Space="C-S" xmlns="http://schemas.microsoft.com/ado/2009/11/mapping/cs">
+        <EntityContainerMapping StorageEntityContainer="voteModelStoreContainer" CdmEntityContainer="voteEntities">
+          <EntitySetMapping Name="memberVoteitem">
+            <EntityTypeMapping TypeName="voteModel.memberVoteitem">
+              <MappingFragment StoreEntitySet="memberVoteitem">
+                <ScalarProperty Name="memberVoteID" ColumnName="memberVoteID" />
+                <ScalarProperty Name="memberID" ColumnName="memberID" />
+                <ScalarProperty Name="itemsID" ColumnName="itemsID" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="viteItem">
+            <EntityTypeMapping TypeName="voteModel.viteItem">
+              <MappingFragment StoreEntitySet="viteItem">
+                <ScalarProperty Name="itemsID" ColumnName="itemsID" />
+                <ScalarProperty Name="items" ColumnName="items" />
+                <ScalarProperty Name="titleID" ColumnName="titleID" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="voteMember">
+            <EntityTypeMapping TypeName="voteModel.voteMember">
+              <MappingFragment StoreEntitySet="voteMember">
+                <ScalarProperty Name="memberID" ColumnName="memberID" />
+                <ScalarProperty Name="memberName" ColumnName="memberName" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="voteTitle">
+            <EntityTypeMapping TypeName="voteModel.voteTitle">
+              <MappingFragment StoreEntitySet="voteTitle">
+                <ScalarProperty Name="titleID" ColumnName="titleID" />
+                <ScalarProperty Name="title" ColumnName="title" />
+                <ScalarProperty Name="startTime" ColumnName="startTime" />
+                <ScalarProperty Name="endTime" ColumnName="endTime" />
+                <ScalarProperty Name="memberID" ColumnName="memberID" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+        </EntityContainerMapping>
+      </Mapping>
+    </edmx:Mappings>
+  </edmx:Runtime>
+  <!-- EF Designer content (DO NOT EDIT MANUALLY BELOW HERE) -->
+  <Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
+    <Connection>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="MetadataArtifactProcessing" Value="EmbedInOutputAssembly" />
+      </DesignerInfoPropertySet>
+    </Connection>
+    <Options>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="ValidateOnBuild" Value="true" />
+        <DesignerProperty Name="EnablePluralization" Value="false" />
+        <DesignerProperty Name="IncludeForeignKeysInModel" Value="true" />
+        <DesignerProperty Name="UseLegacyProvider" Value="false" />
+        <DesignerProperty Name="CodeGenerationStrategy" Value="無" />
+      </DesignerInfoPropertySet>
+    </Options>
+    <!-- Diagram content (shape and connector positions) -->
+    <Diagrams></Diagrams>
+  </Designer>
+</edmx:Edmx>
