@@ -14,6 +14,7 @@ namespace forumAPItest.Controllers
     public class eventgController : ApiController
     {
         finaldbEntities1 db = new finaldbEntities1();
+        [JwtAuthActionFilte]
         public JObject Get()
         {
             var result = new
