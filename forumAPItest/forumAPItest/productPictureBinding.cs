@@ -21,10 +21,8 @@ namespace forumAPItest
         }
     
         public int PIC_ID { get; set; }
-        public int Picture_ID { get; set; }
-        public string Picture_URL_one { get; set; }
-        public string Picture_URL_two { get; set; }
-        public string Picture_URL_three { get; set; }
+        public int Product_ID { get; set; }
+        public string Picture_URL { get; set; }
     
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<productdb> productdb { get; set; }

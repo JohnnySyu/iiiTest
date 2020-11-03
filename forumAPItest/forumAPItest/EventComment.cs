@@ -14,11 +14,11 @@ namespace forumAPItest
     
     public partial class EventComment
     {
-        public int EventCommentID { get; set; }
         public int Event_ID { get; set; }
         public int mb_ID { get; set; }
         public Nullable<int> CommentStatus { get; set; }
     
         public virtual Event Event { get; set; }
+        public virtual memberdb memberdb { get; set; }
     }
 }

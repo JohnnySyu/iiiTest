@@ -10,8 +10,8 @@
             <PropertyRef Name="Blog_ID" />
           </Key>
           <Property Name="Blog_ID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
-          <Property Name="BlogContent" Type="nvarchar" MaxLength="255" />
-          <Property Name="BlogTitle" Type="nchar" MaxLength="10" />
+          <Property Name="BlogContent" Type="varchar(max)" />
+          <Property Name="blogTitle" Type="nvarchar" MaxLength="255" />
           <Property Name="Blogdate" Type="nvarchar" MaxLength="50" />
         </EntityType>
         <EntityType Name="blogBinding">
@@ -49,11 +49,9 @@
         </EntityType>
         <EntityType Name="EventBooking">
           <Key>
-            <PropertyRef Name="EventBooking_ID" />
             <PropertyRef Name="Event_ID" />
             <PropertyRef Name="mb_ID" />
           </Key>
-          <Property Name="EventBooking_ID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
           <Property Name="Event_ID" Type="int" Nullable="false" />
           <Property Name="mb_ID" Type="int" Nullable="false" />
           <Property Name="BookingDate" Type="datetime" />
@@ -61,11 +59,9 @@
         </EntityType>
         <EntityType Name="EventComment">
           <Key>
-            <PropertyRef Name="EventCommentID" />
             <PropertyRef Name="Event_ID" />
             <PropertyRef Name="mb_ID" />
           </Key>
-          <Property Name="EventCommentID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
           <Property Name="Event_ID" Type="int" Nullable="false" />
           <Property Name="mb_ID" Type="int" Nullable="false" />
           <Property Name="CommentStatus" Type="int" />
@@ -86,7 +82,7 @@
           <Property Name="ForumTitle" Type="nvarchar" MaxLength="50" />
           <Property Name="ForumContent" Type="nvarchar" MaxLength="255" />
           <Property Name="ForumContentTime" Type="nvarchar" MaxLength="50" />
-          <Property Name="ForumDelete" Type="nchar" MaxLength="10" />
+          <Property Name="ForumDelete" Type="nvarchar" MaxLength="50" />
         </EntityType>
         <EntityType Name="forumLikebinding">
           <Key>
@@ -145,17 +141,20 @@
           <Property Name="Group_startDate" Type="nvarchar" MaxLength="50" />
           <Property Name="Group_endDate" Type="nvarchar" MaxLength="50" />
           <Property Name="Group_targetNumber" Type="int" />
-          <Property Name="Group_state" Type="int" />
+          <Property Name="Group_type" Type="int" />
+          <Property Name="Group_description" Type="nvarchar" MaxLength="255" />
+          <Property Name="Member_ID" Type="int" />
         </EntityType>
-        <EntityType Name="groupOrderdb">
+        <EntityType Name="groupOrderDetaildb">
           <Key>
-            <PropertyRef Name="Group_ID" />
+            <PropertyRef Name="GID" />
           </Key>
-          <Property Name="Go_ID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
-          <Property Name="Group_ID" Type="int" Nullable="false" />
+          <Property Name="MGOB_ID" Type="int" Nullable="false" />
+          <Property Name="GID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
           <Property Name="GroupOrder_Quantity" Type="int" />
           <Property Name="GroupOrder_Date" Type="nvarchar" MaxLength="50" />
           <Property Name="GroupOrder_State" Type="bit" />
+          <Property Name="followmember_ID" Type="nchar" MaxLength="10" />
         </EntityType>
         <EntityType Name="groupProductBinding">
           <Key>
@@ -164,6 +163,7 @@
           <Property Name="GPB_ID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
           <Property Name="Group_ID" Type="int" />
           <Property Name="Product_ID" Type="int" />
+          <Property Name="Product_lowprice" Type="int" />
         </EntityType>
         <EntityType Name="GroupType">
           <Key>
@@ -200,21 +200,14 @@
           <Property Name="mb_employeeTransport" Type="nvarchar" MaxLength="50" />
           <Property Name="mb_employeeState" Type="int" />
         </EntityType>
-        <EntityType Name="memberGroupBinding">
-          <Key>
-            <PropertyRef Name="MGB_ID" />
-          </Key>
-          <Property Name="MGB_ID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
-          <Property Name="memberdb_ID" Type="int" />
-          <Property Name="Group_ID" Type="int" />
-        </EntityType>
-        <EntityType Name="MemberGroupOrderBinding">
+        <EntityType Name="MemberGroupOrder">
           <Key>
             <PropertyRef Name="MGOB_ID" />
           </Key>
           <Property Name="MGOB_ID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
-          <Property Name="memberdb_ID" Type="int" />
+          <Property Name="openmemberdb_ID" Type="int" />
           <Property Name="Group_ID" Type="int" />
+          <Property Name="Product_ID" Type="int" />
         </EntityType>
         <EntityType Name="MembersType">
           <Key>
@@ -231,27 +224,15 @@
           <Property Name="Product_Name" Type="nvarchar" MaxLength="50" />
           <Property Name="Product_Price" Type="int" />
           <Property Name="Product_description" Type="nvarchar" MaxLength="50" />
-          <Property Name="Product_imageID" Type="int" />
+          <Property Name="Pid" Type="int" />
         </EntityType>
         <EntityType Name="productPictureBinding">
           <Key>
-            <PropertyRef Name="Picture_ID" />
+            <PropertyRef Name="PIC_ID" />
           </Key>
           <Property Name="PIC_ID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
-          <Property Name="Picture_ID" Type="int" Nullable="false" />
-          <Property Name="Picture_URL_one" Type="nvarchar" MaxLength="50" />
-          <Property Name="Picture_URL_two" Type="nvarchar" MaxLength="50" />
-          <Property Name="Picture_URL_three" Type="nvarchar" MaxLength="50" />
-        </EntityType>
-        <EntityType Name="sysdiagrams">
-          <Key>
-            <PropertyRef Name="diagram_id" />
-          </Key>
-          <Property Name="name" Type="nvarchar" MaxLength="128" Nullable="false" />
-          <Property Name="principal_id" Type="int" Nullable="false" />
-          <Property Name="diagram_id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
-          <Property Name="version" Type="int" />
-          <Property Name="definition" Type="varbinary(max)" />
+          <Property Name="Product_ID" Type="int" Nullable="false" />
+          <Property Name="Picture_URL" Type="nvarchar" MaxLength="50" />
         </EntityType>
         <Association Name="FK_blogBinding_blog">
           <End Role="blog" Type="Self.blog" Multiplicity="0..1" />
@@ -301,6 +282,18 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
+        <Association Name="FK_EventBooking_memberdb">
+          <End Role="memberdb" Type="Self.memberdb" Multiplicity="1" />
+          <End Role="EventBooking" Type="Self.EventBooking" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="memberdb">
+              <PropertyRef Name="mb_ID" />
+            </Principal>
+            <Dependent Role="EventBooking">
+              <PropertyRef Name="mb_ID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
         <Association Name="FK_EventComment_Event">
           <End Role="Event" Type="Self.Event" Multiplicity="1" />
           <End Role="EventComment" Type="Self.EventComment" Multiplicity="*" />
@@ -310,6 +303,18 @@
             </Principal>
             <Dependent Role="EventComment">
               <PropertyRef Name="Event_ID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_EventComment_memberdb">
+          <End Role="memberdb" Type="Self.memberdb" Multiplicity="1" />
+          <End Role="EventComment" Type="Self.EventComment" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="memberdb">
+              <PropertyRef Name="mb_ID" />
+            </Principal>
+            <Dependent Role="EventComment">
+              <PropertyRef Name="mb_ID" />
             </Dependent>
           </ReferentialConstraint>
         </Association>
@@ -457,6 +462,30 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
+        <Association Name="FK_Groupdb_memberdb">
+          <End Role="memberdb" Type="Self.memberdb" Multiplicity="0..1" />
+          <End Role="Groupdb" Type="Self.Groupdb" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="memberdb">
+              <PropertyRef Name="mb_ID" />
+            </Principal>
+            <Dependent Role="Groupdb">
+              <PropertyRef Name="Member_ID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_groupOrderDetaildb_MemberGroupOrder">
+          <End Role="MemberGroupOrder" Type="Self.MemberGroupOrder" Multiplicity="1" />
+          <End Role="groupOrderDetaildb" Type="Self.groupOrderDetaildb" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="MemberGroupOrder">
+              <PropertyRef Name="MGOB_ID" />
+            </Principal>
+            <Dependent Role="groupOrderDetaildb">
+              <PropertyRef Name="MGOB_ID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
         <Association Name="FK_groupProductBinding_Groupdb">
           <End Role="Groupdb" Type="Self.Groupdb" Multiplicity="0..1" />
           <End Role="groupProductBinding" Type="Self.groupProductBinding" Multiplicity="*" />
@@ -505,63 +534,27 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
-        <Association Name="FK_memberGroupBinding_Groupdb">
-          <End Role="Groupdb" Type="Self.Groupdb" Multiplicity="0..1" />
-          <End Role="memberGroupBinding" Type="Self.memberGroupBinding" Multiplicity="*" />
-          <ReferentialConstraint>
-            <Principal Role="Groupdb">
-              <PropertyRef Name="Group_ID" />
-            </Principal>
-            <Dependent Role="memberGroupBinding">
-              <PropertyRef Name="Group_ID" />
-            </Dependent>
-          </ReferentialConstraint>
-        </Association>
-        <Association Name="FK_memberGroupBinding_memberdb">
-          <End Role="memberdb" Type="Self.memberdb" Multiplicity="0..1" />
-          <End Role="memberGroupBinding" Type="Self.memberGroupBinding" Multiplicity="*" />
-          <ReferentialConstraint>
-            <Principal Role="memberdb">
-              <PropertyRef Name="mb_ID" />
-            </Principal>
-            <Dependent Role="memberGroupBinding">
-              <PropertyRef Name="memberdb_ID" />
-            </Dependent>
-          </ReferentialConstraint>
-        </Association>
         <Association Name="FK_MemberGroupOrderBinding_Groupdb">
           <End Role="Groupdb" Type="Self.Groupdb" Multiplicity="0..1" />
-          <End Role="MemberGroupOrderBinding" Type="Self.MemberGroupOrderBinding" Multiplicity="*" />
+          <End Role="MemberGroupOrder" Type="Self.MemberGroupOrder" Multiplicity="*" />
           <ReferentialConstraint>
             <Principal Role="Groupdb">
               <PropertyRef Name="Group_ID" />
             </Principal>
-            <Dependent Role="MemberGroupOrderBinding">
-              <PropertyRef Name="Group_ID" />
-            </Dependent>
-          </ReferentialConstraint>
-        </Association>
-        <Association Name="FK_MemberGroupOrderBinding_groupOrderdb">
-          <End Role="groupOrderdb" Type="Self.groupOrderdb" Multiplicity="0..1" />
-          <End Role="MemberGroupOrderBinding" Type="Self.MemberGroupOrderBinding" Multiplicity="*" />
-          <ReferentialConstraint>
-            <Principal Role="groupOrderdb">
-              <PropertyRef Name="Group_ID" />
-            </Principal>
-            <Dependent Role="MemberGroupOrderBinding">
+            <Dependent Role="MemberGroupOrder">
               <PropertyRef Name="Group_ID" />
             </Dependent>
           </ReferentialConstraint>
         </Association>
         <Association Name="FK_MemberGroupOrderBinding_memberdb">
           <End Role="memberdb" Type="Self.memberdb" Multiplicity="0..1" />
-          <End Role="MemberGroupOrderBinding" Type="Self.MemberGroupOrderBinding" Multiplicity="*" />
+          <End Role="MemberGroupOrder" Type="Self.MemberGroupOrder" Multiplicity="*" />
           <ReferentialConstraint>
             <Principal Role="memberdb">
               <PropertyRef Name="mb_ID" />
             </Principal>
-            <Dependent Role="MemberGroupOrderBinding">
-              <PropertyRef Name="memberdb_ID" />
+            <Dependent Role="MemberGroupOrder">
+              <PropertyRef Name="openmemberdb_ID" />
             </Dependent>
           </ReferentialConstraint>
         </Association>
@@ -570,10 +563,10 @@
           <End Role="productdb" Type="Self.productdb" Multiplicity="*" />
           <ReferentialConstraint>
             <Principal Role="productPictureBinding">
-              <PropertyRef Name="Picture_ID" />
+              <PropertyRef Name="PIC_ID" />
             </Principal>
             <Dependent Role="productdb">
-              <PropertyRef Name="Product_imageID" />
+              <PropertyRef Name="Pid" />
             </Dependent>
           </ReferentialConstraint>
         </Association>
@@ -593,17 +586,15 @@
           <EntitySet Name="forumPicture" EntityType="Self.forumPicture" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="forumType" EntityType="Self.forumType" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="Groupdb" EntityType="Self.Groupdb" Schema="dbo" store:Type="Tables" />
-          <EntitySet Name="groupOrderdb" EntityType="Self.groupOrderdb" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="groupOrderDetaildb" EntityType="Self.groupOrderDetaildb" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="groupProductBinding" EntityType="Self.groupProductBinding" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="GroupType" EntityType="Self.GroupType" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="likeType" EntityType="Self.likeType" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="memberdb" EntityType="Self.memberdb" Schema="dbo" store:Type="Tables" />
-          <EntitySet Name="memberGroupBinding" EntityType="Self.memberGroupBinding" Schema="dbo" store:Type="Tables" />
-          <EntitySet Name="MemberGroupOrderBinding" EntityType="Self.MemberGroupOrderBinding" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="MemberGroupOrder" EntityType="Self.MemberGroupOrder" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="MembersType" EntityType="Self.MembersType" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="productdb" EntityType="Self.productdb" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="productPictureBinding" EntityType="Self.productPictureBinding" Schema="dbo" store:Type="Tables" />
-          <EntitySet Name="sysdiagrams" EntityType="Self.sysdiagrams" Schema="dbo" store:Type="Tables" />
           <AssociationSet Name="FK_blogBinding_blog" Association="Self.FK_blogBinding_blog">
             <End Role="blog" EntitySet="blog" />
             <End Role="blogBinding" EntitySet="blogBinding" />
@@ -620,8 +611,16 @@
             <End Role="Event" EntitySet="Event" />
             <End Role="EventBooking" EntitySet="EventBooking" />
           </AssociationSet>
+          <AssociationSet Name="FK_EventBooking_memberdb" Association="Self.FK_EventBooking_memberdb">
+            <End Role="memberdb" EntitySet="memberdb" />
+            <End Role="EventBooking" EntitySet="EventBooking" />
+          </AssociationSet>
           <AssociationSet Name="FK_EventComment_Event" Association="Self.FK_EventComment_Event">
             <End Role="Event" EntitySet="Event" />
+            <End Role="EventComment" EntitySet="EventComment" />
+          </AssociationSet>
+          <AssociationSet Name="FK_EventComment_memberdb" Association="Self.FK_EventComment_memberdb">
+            <End Role="memberdb" EntitySet="memberdb" />
             <End Role="EventComment" EntitySet="EventComment" />
           </AssociationSet>
           <AssociationSet Name="FK_forumBinding_forumContent" Association="Self.FK_forumBinding_forumContent">
@@ -672,6 +671,14 @@
             <End Role="GroupType" EntitySet="GroupType" />
             <End Role="Groupdb" EntitySet="Groupdb" />
           </AssociationSet>
+          <AssociationSet Name="FK_Groupdb_memberdb" Association="Self.FK_Groupdb_memberdb">
+            <End Role="memberdb" EntitySet="memberdb" />
+            <End Role="Groupdb" EntitySet="Groupdb" />
+          </AssociationSet>
+          <AssociationSet Name="FK_groupOrderDetaildb_MemberGroupOrder" Association="Self.FK_groupOrderDetaildb_MemberGroupOrder">
+            <End Role="MemberGroupOrder" EntitySet="MemberGroupOrder" />
+            <End Role="groupOrderDetaildb" EntitySet="groupOrderDetaildb" />
+          </AssociationSet>
           <AssociationSet Name="FK_groupProductBinding_Groupdb" Association="Self.FK_groupProductBinding_Groupdb">
             <End Role="Groupdb" EntitySet="Groupdb" />
             <End Role="groupProductBinding" EntitySet="groupProductBinding" />
@@ -688,25 +695,13 @@
             <End Role="MembersType" EntitySet="MembersType" />
             <End Role="memberdb" EntitySet="memberdb" />
           </AssociationSet>
-          <AssociationSet Name="FK_memberGroupBinding_Groupdb" Association="Self.FK_memberGroupBinding_Groupdb">
-            <End Role="Groupdb" EntitySet="Groupdb" />
-            <End Role="memberGroupBinding" EntitySet="memberGroupBinding" />
-          </AssociationSet>
-          <AssociationSet Name="FK_memberGroupBinding_memberdb" Association="Self.FK_memberGroupBinding_memberdb">
-            <End Role="memberdb" EntitySet="memberdb" />
-            <End Role="memberGroupBinding" EntitySet="memberGroupBinding" />
-          </AssociationSet>
           <AssociationSet Name="FK_MemberGroupOrderBinding_Groupdb" Association="Self.FK_MemberGroupOrderBinding_Groupdb">
             <End Role="Groupdb" EntitySet="Groupdb" />
-            <End Role="MemberGroupOrderBinding" EntitySet="MemberGroupOrderBinding" />
-          </AssociationSet>
-          <AssociationSet Name="FK_MemberGroupOrderBinding_groupOrderdb" Association="Self.FK_MemberGroupOrderBinding_groupOrderdb">
-            <End Role="groupOrderdb" EntitySet="groupOrderdb" />
-            <End Role="MemberGroupOrderBinding" EntitySet="MemberGroupOrderBinding" />
+            <End Role="MemberGroupOrder" EntitySet="MemberGroupOrder" />
           </AssociationSet>
           <AssociationSet Name="FK_MemberGroupOrderBinding_memberdb" Association="Self.FK_MemberGroupOrderBinding_memberdb">
             <End Role="memberdb" EntitySet="memberdb" />
-            <End Role="MemberGroupOrderBinding" EntitySet="MemberGroupOrderBinding" />
+            <End Role="MemberGroupOrder" EntitySet="MemberGroupOrder" />
           </AssociationSet>
           <AssociationSet Name="FK_productdb_productPictureBinding" Association="Self.FK_productdb_productPictureBinding">
             <End Role="productPictureBinding" EntitySet="productPictureBinding" />
@@ -723,8 +718,8 @@
             <PropertyRef Name="Blog_ID" />
           </Key>
           <Property Name="Blog_ID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
-          <Property Name="BlogContent" Type="String" MaxLength="255" FixedLength="false" Unicode="true" />
-          <Property Name="BlogTitle" Type="String" MaxLength="10" FixedLength="true" Unicode="true" />
+          <Property Name="BlogContent" Type="String" MaxLength="Max" FixedLength="false" Unicode="false" />
+          <Property Name="blogTitle" Type="String" MaxLength="255" FixedLength="false" Unicode="true" />
           <Property Name="Blogdate" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
           <NavigationProperty Name="blogBinding" Relationship="Self.FK_blogBinding_blog" FromRole="blog" ToRole="blogBinding" />
         </EntityType>
@@ -769,28 +764,26 @@
         </EntityType>
         <EntityType Name="EventBooking">
           <Key>
-            <PropertyRef Name="EventBooking_ID" />
             <PropertyRef Name="Event_ID" />
             <PropertyRef Name="mb_ID" />
           </Key>
-          <Property Name="EventBooking_ID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
           <Property Name="Event_ID" Type="Int32" Nullable="false" />
           <Property Name="mb_ID" Type="Int32" Nullable="false" />
           <Property Name="BookingDate" Type="DateTime" Precision="3" />
           <Property Name="EmployeeJoinStatus" Type="String" MaxLength="2" FixedLength="true" Unicode="false" />
           <NavigationProperty Name="Event" Relationship="Self.FK_EventBooking_Event" FromRole="EventBooking" ToRole="Event" />
+          <NavigationProperty Name="memberdb" Relationship="Self.FK_EventBooking_memberdb" FromRole="EventBooking" ToRole="memberdb" />
         </EntityType>
         <EntityType Name="EventComment">
           <Key>
-            <PropertyRef Name="EventCommentID" />
             <PropertyRef Name="Event_ID" />
             <PropertyRef Name="mb_ID" />
           </Key>
-          <Property Name="EventCommentID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
           <Property Name="Event_ID" Type="Int32" Nullable="false" />
           <Property Name="mb_ID" Type="Int32" Nullable="false" />
           <Property Name="CommentStatus" Type="Int32" />
           <NavigationProperty Name="Event" Relationship="Self.FK_EventComment_Event" FromRole="EventComment" ToRole="Event" />
+          <NavigationProperty Name="memberdb" Relationship="Self.FK_EventComment_memberdb" FromRole="EventComment" ToRole="memberdb" />
         </EntityType>
         <EntityType Name="forumBinding">
           <Key>
@@ -810,7 +803,7 @@
           <Property Name="ForumTitle" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
           <Property Name="ForumContent1" Type="String" MaxLength="255" FixedLength="false" Unicode="true" />
           <Property Name="ForumContentTime" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
-          <Property Name="ForumDelete" Type="String" MaxLength="10" FixedLength="true" Unicode="true" />
+          <Property Name="ForumDelete" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
           <NavigationProperty Name="forumBinding" Relationship="Self.FK_forumBinding_forumContent" FromRole="forumContent" ToRole="forumBinding" />
           <NavigationProperty Name="forumLikebinding" Relationship="Self.FK_forumLikebinding_forumContent" FromRole="forumContent" ToRole="forumLikebinding" />
           <NavigationProperty Name="forumMessageBinding" Relationship="Self.FK_forumMessageBinding_forumContent" FromRole="forumContent" ToRole="forumMessageBinding" />
@@ -887,22 +880,25 @@
           <Property Name="Group_startDate" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
           <Property Name="Group_endDate" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
           <Property Name="Group_targetNumber" Type="Int32" />
-          <Property Name="Group_state" Type="Int32" />
+          <Property Name="Group_type" Type="Int32" />
+          <Property Name="Group_description" Type="String" MaxLength="255" FixedLength="false" Unicode="true" />
+          <Property Name="Member_ID" Type="Int32" />
           <NavigationProperty Name="GroupType" Relationship="Self.FK_Groupdb_GroupType" FromRole="Groupdb" ToRole="GroupType" />
+          <NavigationProperty Name="memberdb" Relationship="Self.FK_Groupdb_memberdb" FromRole="Groupdb" ToRole="memberdb" />
           <NavigationProperty Name="groupProductBinding" Relationship="Self.FK_groupProductBinding_Groupdb" FromRole="Groupdb" ToRole="groupProductBinding" />
-          <NavigationProperty Name="memberGroupBinding" Relationship="Self.FK_memberGroupBinding_Groupdb" FromRole="Groupdb" ToRole="memberGroupBinding" />
-          <NavigationProperty Name="MemberGroupOrderBinding" Relationship="Self.FK_MemberGroupOrderBinding_Groupdb" FromRole="Groupdb" ToRole="MemberGroupOrderBinding" />
+          <NavigationProperty Name="MemberGroupOrder" Relationship="Self.FK_MemberGroupOrderBinding_Groupdb" FromRole="Groupdb" ToRole="MemberGroupOrder" />
         </EntityType>
-        <EntityType Name="groupOrderdb">
+        <EntityType Name="groupOrderDetaildb">
           <Key>
-            <PropertyRef Name="Group_ID" />
+            <PropertyRef Name="GID" />
           </Key>
-          <Property Name="Go_ID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
-          <Property Name="Group_ID" Type="Int32" Nullable="false" />
+          <Property Name="MGOB_ID" Type="Int32" Nullable="false" />
+          <Property Name="GID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
           <Property Name="GroupOrder_Quantity" Type="Int32" />
           <Property Name="GroupOrder_Date" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
           <Property Name="GroupOrder_State" Type="Boolean" />
-          <NavigationProperty Name="MemberGroupOrderBinding" Relationship="Self.FK_MemberGroupOrderBinding_groupOrderdb" FromRole="groupOrderdb" ToRole="MemberGroupOrderBinding" />
+          <Property Name="followmember_ID" Type="String" MaxLength="10" FixedLength="true" Unicode="true" />
+          <NavigationProperty Name="MemberGroupOrder" Relationship="Self.FK_groupOrderDetaildb_MemberGroupOrder" FromRole="groupOrderDetaildb" ToRole="MemberGroupOrder" />
         </EntityType>
         <EntityType Name="groupProductBinding">
           <Key>
@@ -911,6 +907,7 @@
           <Property Name="GPB_ID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
           <Property Name="Group_ID" Type="Int32" />
           <Property Name="Product_ID" Type="Int32" />
+          <Property Name="Product_lowprice" Type="Int32" />
           <NavigationProperty Name="Groupdb" Relationship="Self.FK_groupProductBinding_Groupdb" FromRole="groupProductBinding" ToRole="Groupdb" />
           <NavigationProperty Name="productdb" Relationship="Self.FK_groupProductBinding_productdb" FromRole="groupProductBinding" ToRole="productdb" />
         </EntityType>
@@ -953,31 +950,24 @@
           <NavigationProperty Name="blogBinding" Relationship="Self.FK_blogBinding_memberdb" FromRole="memberdb" ToRole="blogBinding" />
           <NavigationProperty Name="departmentdb" Relationship="Self.FK_memberdb_departmentdb" FromRole="memberdb" ToRole="departmentdb" />
           <NavigationProperty Name="Event" Relationship="Self.FK_Event_memberdb" FromRole="memberdb" ToRole="Event" />
+          <NavigationProperty Name="EventBooking" Relationship="Self.FK_EventBooking_memberdb" FromRole="memberdb" ToRole="EventBooking" />
+          <NavigationProperty Name="EventComment" Relationship="Self.FK_EventComment_memberdb" FromRole="memberdb" ToRole="EventComment" />
           <NavigationProperty Name="forumMemberBinding" Relationship="Self.FK_forumMemberBinding_memberdb" FromRole="memberdb" ToRole="forumMemberBinding" />
+          <NavigationProperty Name="Groupdb" Relationship="Self.FK_Groupdb_memberdb" FromRole="memberdb" ToRole="Groupdb" />
           <NavigationProperty Name="MembersType" Relationship="Self.FK_memberdb_MembersType" FromRole="memberdb" ToRole="MembersType" />
-          <NavigationProperty Name="memberGroupBinding" Relationship="Self.FK_memberGroupBinding_memberdb" FromRole="memberdb" ToRole="memberGroupBinding" />
-          <NavigationProperty Name="MemberGroupOrderBinding" Relationship="Self.FK_MemberGroupOrderBinding_memberdb" FromRole="memberdb" ToRole="MemberGroupOrderBinding" />
+          <NavigationProperty Name="MemberGroupOrder" Relationship="Self.FK_MemberGroupOrderBinding_memberdb" FromRole="memberdb" ToRole="MemberGroupOrder" />
         </EntityType>
-        <EntityType Name="memberGroupBinding">
-          <Key>
-            <PropertyRef Name="MGB_ID" />
-          </Key>
-          <Property Name="MGB_ID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
-          <Property Name="memberdb_ID" Type="Int32" />
-          <Property Name="Group_ID" Type="Int32" />
-          <NavigationProperty Name="Groupdb" Relationship="Self.FK_memberGroupBinding_Groupdb" FromRole="memberGroupBinding" ToRole="Groupdb" />
-          <NavigationProperty Name="memberdb" Relationship="Self.FK_memberGroupBinding_memberdb" FromRole="memberGroupBinding" ToRole="memberdb" />
-        </EntityType>
-        <EntityType Name="MemberGroupOrderBinding">
+        <EntityType Name="MemberGroupOrder">
           <Key>
             <PropertyRef Name="MGOB_ID" />
           </Key>
           <Property Name="MGOB_ID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
-          <Property Name="memberdb_ID" Type="Int32" />
+          <Property Name="openmemberdb_ID" Type="Int32" />
           <Property Name="Group_ID" Type="Int32" />
-          <NavigationProperty Name="Groupdb" Relationship="Self.FK_MemberGroupOrderBinding_Groupdb" FromRole="MemberGroupOrderBinding" ToRole="Groupdb" />
-          <NavigationProperty Name="groupOrderdb" Relationship="Self.FK_MemberGroupOrderBinding_groupOrderdb" FromRole="MemberGroupOrderBinding" ToRole="groupOrderdb" />
-          <NavigationProperty Name="memberdb" Relationship="Self.FK_MemberGroupOrderBinding_memberdb" FromRole="MemberGroupOrderBinding" ToRole="memberdb" />
+          <Property Name="Product_ID" Type="Int32" />
+          <NavigationProperty Name="Groupdb" Relationship="Self.FK_MemberGroupOrderBinding_Groupdb" FromRole="MemberGroupOrder" ToRole="Groupdb" />
+          <NavigationProperty Name="groupOrderDetaildb" Relationship="Self.FK_groupOrderDetaildb_MemberGroupOrder" FromRole="MemberGroupOrder" ToRole="groupOrderDetaildb" />
+          <NavigationProperty Name="memberdb" Relationship="Self.FK_MemberGroupOrderBinding_memberdb" FromRole="MemberGroupOrder" ToRole="memberdb" />
         </EntityType>
         <EntityType Name="MembersType">
           <Key>
@@ -995,30 +985,18 @@
           <Property Name="Product_Name" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
           <Property Name="Product_Price" Type="Int32" />
           <Property Name="Product_description" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
-          <Property Name="Product_imageID" Type="Int32" />
+          <Property Name="Pid" Type="Int32" />
           <NavigationProperty Name="groupProductBinding" Relationship="Self.FK_groupProductBinding_productdb" FromRole="productdb" ToRole="groupProductBinding" />
           <NavigationProperty Name="productPictureBinding" Relationship="Self.FK_productdb_productPictureBinding" FromRole="productdb" ToRole="productPictureBinding" />
         </EntityType>
         <EntityType Name="productPictureBinding">
           <Key>
-            <PropertyRef Name="Picture_ID" />
+            <PropertyRef Name="PIC_ID" />
           </Key>
           <Property Name="PIC_ID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
-          <Property Name="Picture_ID" Type="Int32" Nullable="false" />
-          <Property Name="Picture_URL_one" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
-          <Property Name="Picture_URL_two" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
-          <Property Name="Picture_URL_three" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="Product_ID" Type="Int32" Nullable="false" />
+          <Property Name="Picture_URL" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
           <NavigationProperty Name="productdb" Relationship="Self.FK_productdb_productPictureBinding" FromRole="productPictureBinding" ToRole="productdb" />
-        </EntityType>
-        <EntityType Name="sysdiagrams">
-          <Key>
-            <PropertyRef Name="diagram_id" />
-          </Key>
-          <Property Name="name" Type="String" MaxLength="128" FixedLength="false" Unicode="true" Nullable="false" />
-          <Property Name="principal_id" Type="Int32" Nullable="false" />
-          <Property Name="diagram_id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
-          <Property Name="version" Type="Int32" />
-          <Property Name="definition" Type="Binary" MaxLength="Max" FixedLength="false" />
         </EntityType>
         <Association Name="FK_blogBinding_blog">
           <End Role="blog" Type="Self.blog" Multiplicity="0..1" />
@@ -1089,6 +1067,30 @@
             </Principal>
             <Dependent Role="EventComment">
               <PropertyRef Name="Event_ID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_EventBooking_memberdb">
+          <End Role="memberdb" Type="Self.memberdb" Multiplicity="1" />
+          <End Role="EventBooking" Type="Self.EventBooking" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="memberdb">
+              <PropertyRef Name="mb_ID" />
+            </Principal>
+            <Dependent Role="EventBooking">
+              <PropertyRef Name="mb_ID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_EventComment_memberdb">
+          <End Role="memberdb" Type="Self.memberdb" Multiplicity="1" />
+          <End Role="EventComment" Type="Self.EventComment" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="memberdb">
+              <PropertyRef Name="mb_ID" />
+            </Principal>
+            <Dependent Role="EventComment">
+              <PropertyRef Name="mb_ID" />
             </Dependent>
           </ReferentialConstraint>
         </Association>
@@ -1236,6 +1238,18 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
+        <Association Name="FK_Groupdb_memberdb">
+          <End Role="memberdb" Type="Self.memberdb" Multiplicity="0..1" />
+          <End Role="Groupdb" Type="Self.Groupdb" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="memberdb">
+              <PropertyRef Name="mb_ID" />
+            </Principal>
+            <Dependent Role="Groupdb">
+              <PropertyRef Name="Member_ID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
         <Association Name="FK_groupProductBinding_Groupdb">
           <End Role="Groupdb" Type="Self.Groupdb" Multiplicity="0..1" />
           <End Role="groupProductBinding" Type="Self.groupProductBinding" Multiplicity="*" />
@@ -1248,39 +1262,27 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
-        <Association Name="FK_memberGroupBinding_Groupdb">
-          <End Role="Groupdb" Type="Self.Groupdb" Multiplicity="0..1" />
-          <End Role="memberGroupBinding" Type="Self.memberGroupBinding" Multiplicity="*" />
-          <ReferentialConstraint>
-            <Principal Role="Groupdb">
-              <PropertyRef Name="Group_ID" />
-            </Principal>
-            <Dependent Role="memberGroupBinding">
-              <PropertyRef Name="Group_ID" />
-            </Dependent>
-          </ReferentialConstraint>
-        </Association>
         <Association Name="FK_MemberGroupOrderBinding_Groupdb">
           <End Role="Groupdb" Type="Self.Groupdb" Multiplicity="0..1" />
-          <End Role="MemberGroupOrderBinding" Type="Self.MemberGroupOrderBinding" Multiplicity="*" />
+          <End Role="MemberGroupOrder" Type="Self.MemberGroupOrder" Multiplicity="*" />
           <ReferentialConstraint>
             <Principal Role="Groupdb">
               <PropertyRef Name="Group_ID" />
             </Principal>
-            <Dependent Role="MemberGroupOrderBinding">
+            <Dependent Role="MemberGroupOrder">
               <PropertyRef Name="Group_ID" />
             </Dependent>
           </ReferentialConstraint>
         </Association>
-        <Association Name="FK_MemberGroupOrderBinding_groupOrderdb">
-          <End Role="groupOrderdb" Type="Self.groupOrderdb" Multiplicity="0..1" />
-          <End Role="MemberGroupOrderBinding" Type="Self.MemberGroupOrderBinding" Multiplicity="*" />
+        <Association Name="FK_groupOrderDetaildb_MemberGroupOrder">
+          <End Role="MemberGroupOrder" Type="Self.MemberGroupOrder" Multiplicity="1" />
+          <End Role="groupOrderDetaildb" Type="Self.groupOrderDetaildb" Multiplicity="*" />
           <ReferentialConstraint>
-            <Principal Role="groupOrderdb">
-              <PropertyRef Name="Group_ID" />
+            <Principal Role="MemberGroupOrder">
+              <PropertyRef Name="MGOB_ID" />
             </Principal>
-            <Dependent Role="MemberGroupOrderBinding">
-              <PropertyRef Name="Group_ID" />
+            <Dependent Role="groupOrderDetaildb">
+              <PropertyRef Name="MGOB_ID" />
             </Dependent>
           </ReferentialConstraint>
         </Association>
@@ -1308,27 +1310,15 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
-        <Association Name="FK_memberGroupBinding_memberdb">
-          <End Role="memberdb" Type="Self.memberdb" Multiplicity="0..1" />
-          <End Role="memberGroupBinding" Type="Self.memberGroupBinding" Multiplicity="*" />
-          <ReferentialConstraint>
-            <Principal Role="memberdb">
-              <PropertyRef Name="mb_ID" />
-            </Principal>
-            <Dependent Role="memberGroupBinding">
-              <PropertyRef Name="memberdb_ID" />
-            </Dependent>
-          </ReferentialConstraint>
-        </Association>
         <Association Name="FK_MemberGroupOrderBinding_memberdb">
           <End Role="memberdb" Type="Self.memberdb" Multiplicity="0..1" />
-          <End Role="MemberGroupOrderBinding" Type="Self.MemberGroupOrderBinding" Multiplicity="*" />
+          <End Role="MemberGroupOrder" Type="Self.MemberGroupOrder" Multiplicity="*" />
           <ReferentialConstraint>
             <Principal Role="memberdb">
               <PropertyRef Name="mb_ID" />
             </Principal>
-            <Dependent Role="MemberGroupOrderBinding">
-              <PropertyRef Name="memberdb_ID" />
+            <Dependent Role="MemberGroupOrder">
+              <PropertyRef Name="openmemberdb_ID" />
             </Dependent>
           </ReferentialConstraint>
         </Association>
@@ -1337,10 +1327,10 @@
           <End Role="productdb" Type="Self.productdb" Multiplicity="*" />
           <ReferentialConstraint>
             <Principal Role="productPictureBinding">
-              <PropertyRef Name="Picture_ID" />
+              <PropertyRef Name="PIC_ID" />
             </Principal>
             <Dependent Role="productdb">
-              <PropertyRef Name="Product_imageID" />
+              <PropertyRef Name="Pid" />
             </Dependent>
           </ReferentialConstraint>
         </Association>
@@ -1360,17 +1350,15 @@
           <EntitySet Name="forumPicture" EntityType="Self.forumPicture" />
           <EntitySet Name="forumType" EntityType="Self.forumType" />
           <EntitySet Name="Groupdb" EntityType="Self.Groupdb" />
-          <EntitySet Name="groupOrderdb" EntityType="Self.groupOrderdb" />
+          <EntitySet Name="groupOrderDetaildb" EntityType="Self.groupOrderDetaildb" />
           <EntitySet Name="groupProductBinding" EntityType="Self.groupProductBinding" />
           <EntitySet Name="GroupType" EntityType="Self.GroupType" />
           <EntitySet Name="likeType" EntityType="Self.likeType" />
           <EntitySet Name="memberdb" EntityType="Self.memberdb" />
-          <EntitySet Name="memberGroupBinding" EntityType="Self.memberGroupBinding" />
-          <EntitySet Name="MemberGroupOrderBinding" EntityType="Self.MemberGroupOrderBinding" />
+          <EntitySet Name="MemberGroupOrder" EntityType="Self.MemberGroupOrder" />
           <EntitySet Name="MembersType" EntityType="Self.MembersType" />
           <EntitySet Name="productdb" EntityType="Self.productdb" />
           <EntitySet Name="productPictureBinding" EntityType="Self.productPictureBinding" />
-          <EntitySet Name="sysdiagrams" EntityType="Self.sysdiagrams" />
           <AssociationSet Name="FK_blogBinding_blog" Association="Self.FK_blogBinding_blog">
             <End Role="blog" EntitySet="blog" />
             <End Role="blogBinding" EntitySet="blogBinding" />
@@ -1393,6 +1381,14 @@
           </AssociationSet>
           <AssociationSet Name="FK_EventComment_Event" Association="Self.FK_EventComment_Event">
             <End Role="Event" EntitySet="Event" />
+            <End Role="EventComment" EntitySet="EventComment" />
+          </AssociationSet>
+          <AssociationSet Name="FK_EventBooking_memberdb" Association="Self.FK_EventBooking_memberdb">
+            <End Role="memberdb" EntitySet="memberdb" />
+            <End Role="EventBooking" EntitySet="EventBooking" />
+          </AssociationSet>
+          <AssociationSet Name="FK_EventComment_memberdb" Association="Self.FK_EventComment_memberdb">
+            <End Role="memberdb" EntitySet="memberdb" />
             <End Role="EventComment" EntitySet="EventComment" />
           </AssociationSet>
           <AssociationSet Name="FK_forumBinding_forumContent" Association="Self.FK_forumBinding_forumContent">
@@ -1443,21 +1439,21 @@
             <End Role="GroupType" EntitySet="GroupType" />
             <End Role="Groupdb" EntitySet="Groupdb" />
           </AssociationSet>
+          <AssociationSet Name="FK_Groupdb_memberdb" Association="Self.FK_Groupdb_memberdb">
+            <End Role="memberdb" EntitySet="memberdb" />
+            <End Role="Groupdb" EntitySet="Groupdb" />
+          </AssociationSet>
           <AssociationSet Name="FK_groupProductBinding_Groupdb" Association="Self.FK_groupProductBinding_Groupdb">
             <End Role="Groupdb" EntitySet="Groupdb" />
             <End Role="groupProductBinding" EntitySet="groupProductBinding" />
           </AssociationSet>
-          <AssociationSet Name="FK_memberGroupBinding_Groupdb" Association="Self.FK_memberGroupBinding_Groupdb">
-            <End Role="Groupdb" EntitySet="Groupdb" />
-            <End Role="memberGroupBinding" EntitySet="memberGroupBinding" />
-          </AssociationSet>
           <AssociationSet Name="FK_MemberGroupOrderBinding_Groupdb" Association="Self.FK_MemberGroupOrderBinding_Groupdb">
             <End Role="Groupdb" EntitySet="Groupdb" />
-            <End Role="MemberGroupOrderBinding" EntitySet="MemberGroupOrderBinding" />
+            <End Role="MemberGroupOrder" EntitySet="MemberGroupOrder" />
           </AssociationSet>
-          <AssociationSet Name="FK_MemberGroupOrderBinding_groupOrderdb" Association="Self.FK_MemberGroupOrderBinding_groupOrderdb">
-            <End Role="groupOrderdb" EntitySet="groupOrderdb" />
-            <End Role="MemberGroupOrderBinding" EntitySet="MemberGroupOrderBinding" />
+          <AssociationSet Name="FK_groupOrderDetaildb_MemberGroupOrder" Association="Self.FK_groupOrderDetaildb_MemberGroupOrder">
+            <End Role="MemberGroupOrder" EntitySet="MemberGroupOrder" />
+            <End Role="groupOrderDetaildb" EntitySet="groupOrderDetaildb" />
           </AssociationSet>
           <AssociationSet Name="FK_groupProductBinding_productdb" Association="Self.FK_groupProductBinding_productdb">
             <End Role="productdb" EntitySet="productdb" />
@@ -1467,13 +1463,9 @@
             <End Role="MembersType" EntitySet="MembersType" />
             <End Role="memberdb" EntitySet="memberdb" />
           </AssociationSet>
-          <AssociationSet Name="FK_memberGroupBinding_memberdb" Association="Self.FK_memberGroupBinding_memberdb">
-            <End Role="memberdb" EntitySet="memberdb" />
-            <End Role="memberGroupBinding" EntitySet="memberGroupBinding" />
-          </AssociationSet>
           <AssociationSet Name="FK_MemberGroupOrderBinding_memberdb" Association="Self.FK_MemberGroupOrderBinding_memberdb">
             <End Role="memberdb" EntitySet="memberdb" />
-            <End Role="MemberGroupOrderBinding" EntitySet="MemberGroupOrderBinding" />
+            <End Role="MemberGroupOrder" EntitySet="MemberGroupOrder" />
           </AssociationSet>
           <AssociationSet Name="FK_productdb_productPictureBinding" Association="Self.FK_productdb_productPictureBinding">
             <End Role="productPictureBinding" EntitySet="productPictureBinding" />
@@ -1491,7 +1483,7 @@
               <MappingFragment StoreEntitySet="blog">
                 <ScalarProperty Name="Blog_ID" ColumnName="Blog_ID" />
                 <ScalarProperty Name="BlogContent" ColumnName="BlogContent" />
-                <ScalarProperty Name="BlogTitle" ColumnName="BlogTitle" />
+                <ScalarProperty Name="blogTitle" ColumnName="blogTitle" />
                 <ScalarProperty Name="Blogdate" ColumnName="Blogdate" />
               </MappingFragment>
             </EntityTypeMapping>
@@ -1535,7 +1527,6 @@
           <EntitySetMapping Name="EventBooking">
             <EntityTypeMapping TypeName="finaldbModel.EventBooking">
               <MappingFragment StoreEntitySet="EventBooking">
-                <ScalarProperty Name="EventBooking_ID" ColumnName="EventBooking_ID" />
                 <ScalarProperty Name="Event_ID" ColumnName="Event_ID" />
                 <ScalarProperty Name="mb_ID" ColumnName="mb_ID" />
                 <ScalarProperty Name="BookingDate" ColumnName="BookingDate" />
@@ -1546,7 +1537,6 @@
           <EntitySetMapping Name="EventComment">
             <EntityTypeMapping TypeName="finaldbModel.EventComment">
               <MappingFragment StoreEntitySet="EventComment">
-                <ScalarProperty Name="EventCommentID" ColumnName="EventCommentID" />
                 <ScalarProperty Name="Event_ID" ColumnName="Event_ID" />
                 <ScalarProperty Name="mb_ID" ColumnName="mb_ID" />
                 <ScalarProperty Name="CommentStatus" ColumnName="CommentStatus" />
@@ -1635,18 +1625,21 @@
                 <ScalarProperty Name="Group_startDate" ColumnName="Group_startDate" />
                 <ScalarProperty Name="Group_endDate" ColumnName="Group_endDate" />
                 <ScalarProperty Name="Group_targetNumber" ColumnName="Group_targetNumber" />
-                <ScalarProperty Name="Group_state" ColumnName="Group_state" />
+                <ScalarProperty Name="Group_type" ColumnName="Group_type" />
+                <ScalarProperty Name="Group_description" ColumnName="Group_description" />
+                <ScalarProperty Name="Member_ID" ColumnName="Member_ID" />
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
-          <EntitySetMapping Name="groupOrderdb">
-            <EntityTypeMapping TypeName="finaldbModel.groupOrderdb">
-              <MappingFragment StoreEntitySet="groupOrderdb">
-                <ScalarProperty Name="Go_ID" ColumnName="Go_ID" />
-                <ScalarProperty Name="Group_ID" ColumnName="Group_ID" />
+          <EntitySetMapping Name="groupOrderDetaildb">
+            <EntityTypeMapping TypeName="finaldbModel.groupOrderDetaildb">
+              <MappingFragment StoreEntitySet="groupOrderDetaildb">
+                <ScalarProperty Name="MGOB_ID" ColumnName="MGOB_ID" />
+                <ScalarProperty Name="GID" ColumnName="GID" />
                 <ScalarProperty Name="GroupOrder_Quantity" ColumnName="GroupOrder_Quantity" />
                 <ScalarProperty Name="GroupOrder_Date" ColumnName="GroupOrder_Date" />
                 <ScalarProperty Name="GroupOrder_State" ColumnName="GroupOrder_State" />
+                <ScalarProperty Name="followmember_ID" ColumnName="followmember_ID" />
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
@@ -1656,6 +1649,7 @@
                 <ScalarProperty Name="GPB_ID" ColumnName="GPB_ID" />
                 <ScalarProperty Name="Group_ID" ColumnName="Group_ID" />
                 <ScalarProperty Name="Product_ID" ColumnName="Product_ID" />
+                <ScalarProperty Name="Product_lowprice" ColumnName="Product_lowprice" />
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
@@ -1697,21 +1691,13 @@
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
-          <EntitySetMapping Name="memberGroupBinding">
-            <EntityTypeMapping TypeName="finaldbModel.memberGroupBinding">
-              <MappingFragment StoreEntitySet="memberGroupBinding">
-                <ScalarProperty Name="MGB_ID" ColumnName="MGB_ID" />
-                <ScalarProperty Name="memberdb_ID" ColumnName="memberdb_ID" />
-                <ScalarProperty Name="Group_ID" ColumnName="Group_ID" />
-              </MappingFragment>
-            </EntityTypeMapping>
-          </EntitySetMapping>
-          <EntitySetMapping Name="MemberGroupOrderBinding">
-            <EntityTypeMapping TypeName="finaldbModel.MemberGroupOrderBinding">
-              <MappingFragment StoreEntitySet="MemberGroupOrderBinding">
+          <EntitySetMapping Name="MemberGroupOrder">
+            <EntityTypeMapping TypeName="finaldbModel.MemberGroupOrder">
+              <MappingFragment StoreEntitySet="MemberGroupOrder">
                 <ScalarProperty Name="MGOB_ID" ColumnName="MGOB_ID" />
-                <ScalarProperty Name="memberdb_ID" ColumnName="memberdb_ID" />
+                <ScalarProperty Name="openmemberdb_ID" ColumnName="openmemberdb_ID" />
                 <ScalarProperty Name="Group_ID" ColumnName="Group_ID" />
+                <ScalarProperty Name="Product_ID" ColumnName="Product_ID" />
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
@@ -1730,7 +1716,7 @@
                 <ScalarProperty Name="Product_Name" ColumnName="Product_Name" />
                 <ScalarProperty Name="Product_Price" ColumnName="Product_Price" />
                 <ScalarProperty Name="Product_description" ColumnName="Product_description" />
-                <ScalarProperty Name="Product_imageID" ColumnName="Product_imageID" />
+                <ScalarProperty Name="Pid" ColumnName="Pid" />
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
@@ -1738,21 +1724,8 @@
             <EntityTypeMapping TypeName="finaldbModel.productPictureBinding">
               <MappingFragment StoreEntitySet="productPictureBinding">
                 <ScalarProperty Name="PIC_ID" ColumnName="PIC_ID" />
-                <ScalarProperty Name="Picture_ID" ColumnName="Picture_ID" />
-                <ScalarProperty Name="Picture_URL_one" ColumnName="Picture_URL_one" />
-                <ScalarProperty Name="Picture_URL_two" ColumnName="Picture_URL_two" />
-                <ScalarProperty Name="Picture_URL_three" ColumnName="Picture_URL_three" />
-              </MappingFragment>
-            </EntityTypeMapping>
-          </EntitySetMapping>
-          <EntitySetMapping Name="sysdiagrams">
-            <EntityTypeMapping TypeName="finaldbModel.sysdiagrams">
-              <MappingFragment StoreEntitySet="sysdiagrams">
-                <ScalarProperty Name="name" ColumnName="name" />
-                <ScalarProperty Name="principal_id" ColumnName="principal_id" />
-                <ScalarProperty Name="diagram_id" ColumnName="diagram_id" />
-                <ScalarProperty Name="version" ColumnName="version" />
-                <ScalarProperty Name="definition" ColumnName="definition" />
+                <ScalarProperty Name="Product_ID" ColumnName="Product_ID" />
+                <ScalarProperty Name="Picture_URL" ColumnName="Picture_URL" />
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>

@@ -19,9 +19,11 @@ namespace forumAPItest
         {
             this.blogBinding = new HashSet<blogBinding>();
             this.Event = new HashSet<Event>();
+            this.EventBooking = new HashSet<EventBooking>();
+            this.EventComment = new HashSet<EventComment>();
             this.forumMemberBinding = new HashSet<forumMemberBinding>();
-            this.memberGroupBinding = new HashSet<memberGroupBinding>();
-            this.MemberGroupOrderBinding = new HashSet<MemberGroupOrderBinding>();
+            this.Groupdb = new HashSet<Groupdb>();
+            this.MemberGroupOrder = new HashSet<MemberGroupOrder>();
         }
     
         public int mb_ID { get; set; }
@@ -47,11 +49,15 @@ namespace forumAPItest
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<Event> Event { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
+        public virtual ICollection<EventBooking> EventBooking { get; set; }
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
+        public virtual ICollection<EventComment> EventComment { get; set; }
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<forumMemberBinding> forumMemberBinding { get; set; }
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
+        public virtual ICollection<Groupdb> Groupdb { get; set; }
         public virtual MembersType MembersType { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
-        public virtual ICollection<memberGroupBinding> memberGroupBinding { get; set; }
-        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
-        public virtual ICollection<MemberGroupOrderBinding> MemberGroupOrderBinding { get; set; }
+        public virtual ICollection<MemberGroupOrder> MemberGroupOrder { get; set; }
     }
 }

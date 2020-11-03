@@ -12,14 +12,15 @@ namespace forumAPItest
     using System;
     using System.Collections.Generic;
     
-    public partial class MemberGroupOrderBinding
+    public partial class groupOrderDetaildb
     {
         public int MGOB_ID { get; set; }
-        public Nullable<int> memberdb_ID { get; set; }
-        public Nullable<int> Group_ID { get; set; }
+        public int GID { get; set; }
+        public Nullable<int> GroupOrder_Quantity { get; set; }
+        public string GroupOrder_Date { get; set; }
+        public Nullable<bool> GroupOrder_State { get; set; }
+        public string followmember_ID { get; set; }
     
-        public virtual Groupdb Groupdb { get; set; }
-        public virtual groupOrderdb groupOrderdb { get; set; }
-        public virtual memberdb memberdb { get; set; }
+        public virtual MemberGroupOrder MemberGroupOrder { get; set; }
     }
 }

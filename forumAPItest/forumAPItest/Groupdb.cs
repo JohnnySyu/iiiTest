@@ -18,22 +18,22 @@ namespace forumAPItest
         public Groupdb()
         {
             this.groupProductBinding = new HashSet<groupProductBinding>();
-            this.memberGroupBinding = new HashSet<memberGroupBinding>();
-            this.MemberGroupOrderBinding = new HashSet<MemberGroupOrderBinding>();
+            this.MemberGroupOrder = new HashSet<MemberGroupOrder>();
         }
     
         public int Group_ID { get; set; }
         public string Group_startDate { get; set; }
         public string Group_endDate { get; set; }
         public Nullable<int> Group_targetNumber { get; set; }
-        public Nullable<int> Group_state { get; set; }
+        public Nullable<int> Group_type { get; set; }
+        public string Group_description { get; set; }
+        public Nullable<int> Member_ID { get; set; }
     
         public virtual GroupType GroupType { get; set; }
+        public virtual memberdb memberdb { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<groupProductBinding> groupProductBinding { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
-        public virtual ICollection<memberGroupBinding> memberGroupBinding { get; set; }
-        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
-        public virtual ICollection<MemberGroupOrderBinding> MemberGroupOrderBinding { get; set; }
+        public virtual ICollection<MemberGroupOrder> MemberGroupOrder { get; set; }
     }
 }
