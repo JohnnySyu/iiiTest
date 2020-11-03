@@ -29,8 +29,9 @@
         <input type="text" id="login" class="fadeIn second">
         <input type="text" id="password" class="fadeIn third">
 
-        <input type="submit" value="Log In" onclick="gotologin()">
+
       </form>
+      <input type="submit" value="Log In" onclick="gotologin()">
       <div id="formFooter">
         <a class="underlineHover" href="#">Forgot Password? Call #6666</a>
       </div>
@@ -50,7 +51,6 @@
           console.log(data.data.token)
           if (data.data.Result == true) {
             location.href = "index.html"
-            alert("我好帥")
             localStorage.setItem("token", data.data.token)
           } else {
             alert("帳號密碼錯誤")
