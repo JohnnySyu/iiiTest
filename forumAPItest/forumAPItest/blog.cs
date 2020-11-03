@@ -22,7 +22,7 @@ namespace forumAPItest
     
         public int Blog_ID { get; set; }
         public string BlogContent { get; set; }
-        public string BlogTitle { get; set; }
+        public string blogTitle { get; set; }
         public string Blogdate { get; set; }
     
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]

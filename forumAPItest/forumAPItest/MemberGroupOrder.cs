@@ -12,21 +12,22 @@ namespace forumAPItest
     using System;
     using System.Collections.Generic;
     
-    public partial class groupOrderdb
+    public partial class MemberGroupOrder
     {
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2214:DoNotCallOverridableMethodsInConstructors")]
-        public groupOrderdb()
+        public MemberGroupOrder()
         {
-            this.MemberGroupOrderBinding = new HashSet<MemberGroupOrderBinding>();
+            this.groupOrderDetaildb = new HashSet<groupOrderDetaildb>();
         }
     
-        public int Go_ID { get; set; }
-        public int Group_ID { get; set; }
-        public Nullable<int> GroupOrder_Quantity { get; set; }
-        public string GroupOrder_Date { get; set; }
-        public Nullable<bool> GroupOrder_State { get; set; }
+        public int MGOB_ID { get; set; }
+        public Nullable<int> openmemberdb_ID { get; set; }
+        public Nullable<int> Group_ID { get; set; }
+        public Nullable<int> Product_ID { get; set; }
     
+        public virtual Groupdb Groupdb { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
-        public virtual ICollection<MemberGroupOrderBinding> MemberGroupOrderBinding { get; set; }
+        public virtual ICollection<groupOrderDetaildb> groupOrderDetaildb { get; set; }
+        public virtual memberdb memberdb { get; set; }
     }
 }

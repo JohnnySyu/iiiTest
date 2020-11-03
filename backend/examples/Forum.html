@@ -46,7 +46,10 @@
 
         .search_txt {
             margin-right: 5px;
-            margin-left: 3px;
+            
+        }
+        .marginleft{
+            margin-left: 5px;
         }
     </style>
 </head>
@@ -69,7 +72,7 @@
                     <li>
                         <a class="nav-link" href="index.html">
                             <i class="nc-icon nc-chart-pie-35"></i>
-                            <p>Dashboard</p>
+                            <p>主頁</p>
                         </a>
                     </li>
                     <li>
@@ -85,7 +88,7 @@
                         </a>
                     </li>
                     <li>
-                        <a class="nav-link" href="./Flowtable.html">
+                        <a class="nav-link" href="./Event.html">
                             <i class="nc-icon nc-notes"></i>
                             <p>開團</p>
                         </a>
@@ -142,21 +145,21 @@
                                     <table class="table table-hover table-striped" id="datatable">
                                         <thead>
                                             <form name='form' action='#' method='post' class="formtxt">
-                                                <p id="membertxt">登入系統人:<br /><input type="text" id="memberedit"
+                                                <p id="membertxt" class="marginleft">登入系統人:<br /><input type="text" id="memberedit"
                                                         placeholder="管理員mb_ID目前設定為12"></p>
                                                 <br />
-                                                <p>標題:<br /><input type="text" id="titleedit"></p><br />
-                                                <p>內容:
+                                                <p class="marginleft">標題:<br /><input type="text" id="titleedit"></p><br />
+                                                <p class="marginleft">內容:
                                                     <textarea name="contenttxt" id="contenttxt" rows="10"
                                                         cols="80"></textarea></p>
                                                 <script>
                                                     CKEDITOR.replace('contenttxt', { width: 700, });
                                                     const intxt = CKEDITOR.instances.contenttxt.getData();
                                                 </script>
-                                                <p><input type='button' value='送出' onclick="sendData()"></p>
+                                                <p class="marginleft"><input type='button' value='送出' onclick="sendData()"></p>
                                             </form><br /><br />
 
-                                            <input type="text" class="search_txt" placeholder="以發文者ID搜尋"
+                                            <input type="text" class="search_txt marginleft" placeholder="以發文者ID搜尋"
                                                 id="srchPoster_ID">
                                             <button onclick="`${getDataKey()}`"><i class="fas fa-search"></i></button>
 

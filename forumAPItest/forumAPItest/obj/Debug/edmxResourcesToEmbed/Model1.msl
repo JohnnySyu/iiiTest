@@ -6,7 +6,7 @@
         <MappingFragment StoreEntitySet="blog">
           <ScalarProperty Name="Blog_ID" ColumnName="Blog_ID" />
           <ScalarProperty Name="BlogContent" ColumnName="BlogContent" />
-          <ScalarProperty Name="BlogTitle" ColumnName="BlogTitle" />
+          <ScalarProperty Name="blogTitle" ColumnName="blogTitle" />
           <ScalarProperty Name="Blogdate" ColumnName="Blogdate" />
         </MappingFragment>
       </EntityTypeMapping>
@@ -50,7 +50,6 @@
     <EntitySetMapping Name="EventBooking">
       <EntityTypeMapping TypeName="finaldbModel.EventBooking">
         <MappingFragment StoreEntitySet="EventBooking">
-          <ScalarProperty Name="EventBooking_ID" ColumnName="EventBooking_ID" />
           <ScalarProperty Name="Event_ID" ColumnName="Event_ID" />
           <ScalarProperty Name="mb_ID" ColumnName="mb_ID" />
           <ScalarProperty Name="BookingDate" ColumnName="BookingDate" />
@@ -61,7 +60,6 @@
     <EntitySetMapping Name="EventComment">
       <EntityTypeMapping TypeName="finaldbModel.EventComment">
         <MappingFragment StoreEntitySet="EventComment">
-          <ScalarProperty Name="EventCommentID" ColumnName="EventCommentID" />
           <ScalarProperty Name="Event_ID" ColumnName="Event_ID" />
           <ScalarProperty Name="mb_ID" ColumnName="mb_ID" />
           <ScalarProperty Name="CommentStatus" ColumnName="CommentStatus" />
@@ -150,18 +148,21 @@
           <ScalarProperty Name="Group_startDate" ColumnName="Group_startDate" />
           <ScalarProperty Name="Group_endDate" ColumnName="Group_endDate" />
           <ScalarProperty Name="Group_targetNumber" ColumnName="Group_targetNumber" />
-          <ScalarProperty Name="Group_state" ColumnName="Group_state" />
+          <ScalarProperty Name="Group_type" ColumnName="Group_type" />
+          <ScalarProperty Name="Group_description" ColumnName="Group_description" />
+          <ScalarProperty Name="Member_ID" ColumnName="Member_ID" />
         </MappingFragment>
       </EntityTypeMapping>
     </EntitySetMapping>
-    <EntitySetMapping Name="groupOrderdb">
-      <EntityTypeMapping TypeName="finaldbModel.groupOrderdb">
-        <MappingFragment StoreEntitySet="groupOrderdb">
-          <ScalarProperty Name="Go_ID" ColumnName="Go_ID" />
-          <ScalarProperty Name="Group_ID" ColumnName="Group_ID" />
+    <EntitySetMapping Name="groupOrderDetaildb">
+      <EntityTypeMapping TypeName="finaldbModel.groupOrderDetaildb">
+        <MappingFragment StoreEntitySet="groupOrderDetaildb">
+          <ScalarProperty Name="MGOB_ID" ColumnName="MGOB_ID" />
+          <ScalarProperty Name="GID" ColumnName="GID" />
           <ScalarProperty Name="GroupOrder_Quantity" ColumnName="GroupOrder_Quantity" />
           <ScalarProperty Name="GroupOrder_Date" ColumnName="GroupOrder_Date" />
           <ScalarProperty Name="GroupOrder_State" ColumnName="GroupOrder_State" />
+          <ScalarProperty Name="followmember_ID" ColumnName="followmember_ID" />
         </MappingFragment>
       </EntityTypeMapping>
     </EntitySetMapping>
@@ -171,6 +172,7 @@
           <ScalarProperty Name="GPB_ID" ColumnName="GPB_ID" />
           <ScalarProperty Name="Group_ID" ColumnName="Group_ID" />
           <ScalarProperty Name="Product_ID" ColumnName="Product_ID" />
+          <ScalarProperty Name="Product_lowprice" ColumnName="Product_lowprice" />
         </MappingFragment>
       </EntityTypeMapping>
     </EntitySetMapping>
@@ -212,21 +214,13 @@
         </MappingFragment>
       </EntityTypeMapping>
     </EntitySetMapping>
-    <EntitySetMapping Name="memberGroupBinding">
-      <EntityTypeMapping TypeName="finaldbModel.memberGroupBinding">
-        <MappingFragment StoreEntitySet="memberGroupBinding">
-          <ScalarProperty Name="MGB_ID" ColumnName="MGB_ID" />
-          <ScalarProperty Name="memberdb_ID" ColumnName="memberdb_ID" />
-          <ScalarProperty Name="Group_ID" ColumnName="Group_ID" />
-        </MappingFragment>
-      </EntityTypeMapping>
-    </EntitySetMapping>
-    <EntitySetMapping Name="MemberGroupOrderBinding">
-      <EntityTypeMapping TypeName="finaldbModel.MemberGroupOrderBinding">
-        <MappingFragment StoreEntitySet="MemberGroupOrderBinding">
+    <EntitySetMapping Name="MemberGroupOrder">
+      <EntityTypeMapping TypeName="finaldbModel.MemberGroupOrder">
+        <MappingFragment StoreEntitySet="MemberGroupOrder">
           <ScalarProperty Name="MGOB_ID" ColumnName="MGOB_ID" />
-          <ScalarProperty Name="memberdb_ID" ColumnName="memberdb_ID" />
+          <ScalarProperty Name="openmemberdb_ID" ColumnName="openmemberdb_ID" />
           <ScalarProperty Name="Group_ID" ColumnName="Group_ID" />
+          <ScalarProperty Name="Product_ID" ColumnName="Product_ID" />
         </MappingFragment>
       </EntityTypeMapping>
     </EntitySetMapping>
@@ -245,7 +239,7 @@
           <ScalarProperty Name="Product_Name" ColumnName="Product_Name" />
           <ScalarProperty Name="Product_Price" ColumnName="Product_Price" />
           <ScalarProperty Name="Product_description" ColumnName="Product_description" />
-          <ScalarProperty Name="Product_imageID" ColumnName="Product_imageID" />
+          <ScalarProperty Name="Pid" ColumnName="Pid" />
         </MappingFragment>
       </EntityTypeMapping>
     </EntitySetMapping>
@@ -253,21 +247,8 @@
       <EntityTypeMapping TypeName="finaldbModel.productPictureBinding">
         <MappingFragment StoreEntitySet="productPictureBinding">
           <ScalarProperty Name="PIC_ID" ColumnName="PIC_ID" />
-          <ScalarProperty Name="Picture_ID" ColumnName="Picture_ID" />
-          <ScalarProperty Name="Picture_URL_one" ColumnName="Picture_URL_one" />
-          <ScalarProperty Name="Picture_URL_two" ColumnName="Picture_URL_two" />
-          <ScalarProperty Name="Picture_URL_three" ColumnName="Picture_URL_three" />
-        </MappingFragment>
-      </EntityTypeMapping>
-    </EntitySetMapping>
-    <EntitySetMapping Name="sysdiagrams">
-      <EntityTypeMapping TypeName="finaldbModel.sysdiagrams">
-        <MappingFragment StoreEntitySet="sysdiagrams">
-          <ScalarProperty Name="name" ColumnName="name" />
-          <ScalarProperty Name="principal_id" ColumnName="principal_id" />
-          <ScalarProperty Name="diagram_id" ColumnName="diagram_id" />
-          <ScalarProperty Name="version" ColumnName="version" />
-          <ScalarProperty Name="definition" ColumnName="definition" />
+          <ScalarProperty Name="Product_ID" ColumnName="Product_ID" />
+          <ScalarProperty Name="Picture_URL" ColumnName="Picture_URL" />
         </MappingFragment>
       </EntityTypeMapping>
     </EntitySetMapping>

@@ -14,12 +14,12 @@ namespace forumAPItest
     
     public partial class EventBooking
     {
-        public int EventBooking_ID { get; set; }
         public int Event_ID { get; set; }
         public int mb_ID { get; set; }
         public Nullable<System.DateTime> BookingDate { get; set; }
         public string EmployeeJoinStatus { get; set; }
     
         public virtual Event Event { get; set; }
+        public virtual memberdb memberdb { get; set; }
     }
 }

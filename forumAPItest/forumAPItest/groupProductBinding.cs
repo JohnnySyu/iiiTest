@@ -17,6 +17,7 @@ namespace forumAPItest
         public int GPB_ID { get; set; }
         public Nullable<int> Group_ID { get; set; }
         public Nullable<int> Product_ID { get; set; }
+        public Nullable<int> Product_lowprice { get; set; }
     
         public virtual Groupdb Groupdb { get; set; }
         public virtual productdb productdb { get; set; }

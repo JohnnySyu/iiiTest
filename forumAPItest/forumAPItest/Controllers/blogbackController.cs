@@ -25,7 +25,7 @@ namespace forumAPItest.Controllers
                          select new
                          {
                              id = n.Blog_ID,
-                             title = n.blog.BlogTitle,
+                             title = n.blog.blogTitle,
                              Content = n.blog.BlogContent,
                              time = n.blog.Blogdate,
                          };
@@ -55,11 +55,11 @@ namespace forumAPItest.Controllers
 
             var ftable = from n in db.blogBinding
                          orderby n.blog.Blog_ID descending
-                         where n.blog.BlogTitle.Contains(titletxt) || n.blog.BlogContent.Contains(contenttxt)
+                         where n.blog.blogTitle.Contains(titletxt) || n.blog.BlogContent.Contains(contenttxt)
                          select new
                          {
                              id = n.Blog_ID,
-                             title = n.blog.BlogTitle,
+                             title = n.blog.blogTitle,
                              Content = n.blog.BlogContent,
                              time = n.blog.Blogdate,
                              name = n.memberdb.mb_employeeName
@@ -88,7 +88,7 @@ namespace forumAPItest.Controllers
             blog blogadd = new blog();
             blogBinding blogBinding = new blogBinding();
 
-            blogadd.BlogTitle= value["title"].ToString();
+            blogadd.blogTitle= value["title"].ToString();
             blogadd.BlogContent= value["content"].ToString();
             blogadd.Blogdate = DateTime.Now.ToString("G");
             db.blog.Add(blogadd);
@@ -127,7 +127,7 @@ namespace forumAPItest.Controllers
             var content = value["content"].ToString();
             var time = DateTime.Now.ToString("G");
 
-            Putblog.BlogTitle = title;
+            Putblog.blogTitle = title;
             Putblog.BlogContent = content;
             Putblog.Blogdate = time;
             db.SaveChanges();

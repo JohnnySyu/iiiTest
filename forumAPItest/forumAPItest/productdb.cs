@@ -24,7 +24,7 @@ namespace forumAPItest
         public string Product_Name { get; set; }
         public Nullable<int> Product_Price { get; set; }
         public string Product_description { get; set; }
-        public Nullable<int> Product_imageID { get; set; }
+        public Nullable<int> Pid { get; set; }
     
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<groupProductBinding> groupProductBinding { get; set; }

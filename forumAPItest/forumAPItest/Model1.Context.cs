@@ -40,16 +40,14 @@ namespace forumAPItest
         public virtual DbSet<forumPicture> forumPicture { get; set; }
         public virtual DbSet<forumType> forumType { get; set; }
         public virtual DbSet<Groupdb> Groupdb { get; set; }
-        public virtual DbSet<groupOrderdb> groupOrderdb { get; set; }
+        public virtual DbSet<groupOrderDetaildb> groupOrderDetaildb { get; set; }
         public virtual DbSet<groupProductBinding> groupProductBinding { get; set; }
         public virtual DbSet<GroupType> GroupType { get; set; }
         public virtual DbSet<likeType> likeType { get; set; }
         public virtual DbSet<memberdb> memberdb { get; set; }
-        public virtual DbSet<memberGroupBinding> memberGroupBinding { get; set; }
-        public virtual DbSet<MemberGroupOrderBinding> MemberGroupOrderBinding { get; set; }
+        public virtual DbSet<MemberGroupOrder> MemberGroupOrder { get; set; }
         public virtual DbSet<MembersType> MembersType { get; set; }
         public virtual DbSet<productdb> productdb { get; set; }
         public virtual DbSet<productPictureBinding> productPictureBinding { get; set; }
-        public virtual DbSet<sysdiagrams> sysdiagrams { get; set; }
     }
 }
