@@ -12,10 +12,7 @@ namespace forumAPItest
     using System;
     using System.Collections.Generic;
     
-<<<<<<< HEAD
 <<<<<<< HEAD:forumAPItest/forumAPItest/MemberGroupOrder.cs
-=======
->>>>>>> f638f8d148a978d95fcd36982884afc20158f499
     public partial class MemberGroupOrder
     {
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2214:DoNotCallOverridableMethodsInConstructors")]
@@ -28,7 +25,6 @@ namespace forumAPItest
         public Nullable<int> openmemberdb_ID { get; set; }
         public Nullable<int> Group_ID { get; set; }
         public Nullable<int> Product_ID { get; set; }
-<<<<<<< HEAD
 =======
     public partial class viteItem
     {
@@ -52,12 +48,5 @@ namespace forumAPItest
         public virtual ICollection<memberVoteitem> memberVoteitem { get; set; }
         public virtual voteTitle voteTitle { get; set; }
 >>>>>>> f638f8d148a978d95fcd36982884afc20158f499:forumAPItest/forumAPItest/viteItem.cs
-=======
-    
-        public virtual Groupdb Groupdb { get; set; }
-        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
-        public virtual ICollection<groupOrderDetaildb> groupOrderDetaildb { get; set; }
-        public virtual memberdb memberdb { get; set; }
->>>>>>> f638f8d148a978d95fcd36982884afc20158f499
     }
 }

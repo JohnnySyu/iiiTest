@@ -1,5 +1,14 @@
+<<<<<<< HEAD
 ﻿using forumAPItest.Models;
 using Newtonsoft.Json;
+=======
+<<<<<<< HEAD
+﻿using forumAPItest.Models;
+using Newtonsoft.Json;
+=======
+﻿using Newtonsoft.Json;
+>>>>>>> origin/master
+>>>>>>> f638f8d148a978d95fcd36982884afc20158f499
 using Newtonsoft.Json.Linq;
 using System;
 using System.Collections.Generic;
@@ -9,11 +18,25 @@ using System.Net.Http;
 using System.Web.Http;
 using System.Web.Http.Cors;
 
+<<<<<<< HEAD
+=======
+<<<<<<< HEAD
+
+=======
+>>>>>>> origin/master
+>>>>>>> f638f8d148a978d95fcd36982884afc20158f499
 namespace forumAPItest.Controllers
 {
     public class eventgController : ApiController
     {
         finaldbEntities1 db = new finaldbEntities1();
+<<<<<<< HEAD
+=======
+<<<<<<< HEAD
+        [JwtAuthActionFilte]
+=======
+>>>>>>> origin/master
+>>>>>>> f638f8d148a978d95fcd36982884afc20158f499
         public JObject Get()
         {
             var result = new
@@ -91,7 +114,15 @@ namespace forumAPItest.Controllers
         }
 
         // POST: api/event
+<<<<<<< HEAD
         public HttpResponseMessage Post([FromBody] JObject value)
+=======
+<<<<<<< HEAD
+        public HttpResponseMessage Post([FromBody] JObject value)
+=======
+        public HttpResponseMessage Post([FromBody]JObject value)
+>>>>>>> origin/master
+>>>>>>> f638f8d148a978d95fcd36982884afc20158f499
         {
 
             string controllerName = ControllerContext.RouteData.Values["controller"].ToString();
@@ -136,7 +167,15 @@ namespace forumAPItest.Controllers
         // PUT: api/event/5
         [HttpPut]
         [EnableCors("*", "*", "*")]
+<<<<<<< HEAD
         public HttpResponseMessage Put(int id, [FromBody] JObject value)
+=======
+<<<<<<< HEAD
+        public HttpResponseMessage Put(int id, [FromBody] JObject value)
+=======
+        public HttpResponseMessage Put(int id, [FromBody]JObject value)
+>>>>>>> origin/master
+>>>>>>> f638f8d148a978d95fcd36982884afc20158f499
         {
             //string eventg= ControllerContext.RouteData.Values["eventg"].ToString();
             var editevent = db.Event.FirstOrDefault(p => p.Event_ID == id);
@@ -201,4 +240,11 @@ namespace forumAPItest.Controllers
         }
 
     }
+<<<<<<< HEAD
+=======
+<<<<<<< HEAD
+
+=======
+>>>>>>> origin/master
+>>>>>>> f638f8d148a978d95fcd36982884afc20158f499
 }
