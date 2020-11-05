@@ -194,6 +194,7 @@
     <Property Name="mb_employeeHireDate" Type="date" />
     <Property Name="mb_employeeTransport" Type="nvarchar" MaxLength="50" />
     <Property Name="mb_employeeState" Type="int" />
+    <Property Name="mb_package" Type="int" />
   </EntityType>
   <EntityType Name="MemberGroupOrder">
     <Key>

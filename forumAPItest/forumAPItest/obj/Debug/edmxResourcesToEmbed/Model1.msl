@@ -195,6 +195,7 @@
     <EntitySetMapping Name="memberdb">
       <EntityTypeMapping TypeName="finaldbModel.memberdb">
         <MappingFragment StoreEntitySet="memberdb">
+          <ScalarProperty Name="mb_package" ColumnName="mb_package" />
           <ScalarProperty Name="mb_ID" ColumnName="mb_ID" />
           <ScalarProperty Name="mb_employeeName" ColumnName="mb_employeeName" />
           <ScalarProperty Name="mb_employeeAccount" ColumnName="mb_employeeAccount" />

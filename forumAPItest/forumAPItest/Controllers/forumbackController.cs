@@ -186,11 +186,11 @@ namespace forumAPItest.Controllers
                 forumContent q = new forumContent();
                 forumBinding p = new forumBinding();
                 forumMemberBinding m = new forumMemberBinding();
-                forumPicture pic = new forumPicture();
+                
                 //JObject jo = JObject.Parse(value);
 
                 m.ForumTypeID = 1;
-                m.mb_ID = 12;
+                m.mb_ID = int.Parse(value["id"].ToString());
                 db.forumMemberBinding.Add(m);
                 db.SaveChanges();
 
@@ -200,16 +200,7 @@ namespace forumAPItest.Controllers
                 db.forumContent.Add(q);
                 db.SaveChanges();
 
-                for (var i = 1; i <= value.Count; i++)
-                {
-                    if (i <= value.Count - 2)
-                    {
-                        pic.ForumPicture1 = value["pic" + i].ToString();
-                        pic.ForumContentID = q.ForumContentID;
-                        db.forumPicture.Add(pic);
-                        db.SaveChanges();
-                    }
-                }
+               
                 p.fmb_ID = m.ForumMemberBinding_ID;
                 p.ForumContentID = q.ForumContentID;
                 db.forumBinding.Add(p);

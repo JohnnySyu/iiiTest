@@ -147,9 +147,11 @@
     <Compile Include="Controllers\evevntbookingController.cs" />
     <Compile Include="Controllers\forumbackController.cs" />
     <Compile Include="Controllers\loginController.cs" />
+    <Compile Include="Controllers\mbPackageController.cs" />
     <Compile Include="Controllers\memberbackController.cs" />
     <Compile Include="Controllers\MessageAPIController.cs" />
     <Compile Include="Controllers\MesLikeController.cs" />
+    <Compile Include="Controllers\PackageTokenController .cs" />
     <Compile Include="Controllers\TokenController.cs" />
     <Compile Include="departmentdb.cs">
       <DependentUpon>Model1.tt</DependentUpon>
@@ -230,7 +232,9 @@
       <DependentUpon>Model1.edmx</DependentUpon>
     </Compile>
     <Compile Include="Models\cJsonModels.cs" />
+    <Compile Include="Models\JwtAuthPackageFilte.cs" />
     <Compile Include="Models\JwtAuthActionFilte.cs" />
+    <Compile Include="Models\packageApi.cs" />
     <Compile Include="Models\JwtAuthWebApi.cs" />
     <Compile Include="productdb.cs">
       <DependentUpon>Model1.tt</DependentUpon>

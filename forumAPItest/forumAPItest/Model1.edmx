@@ -4,7 +4,7 @@
   <edmx:Runtime>
     <!-- SSDL content -->
     <edmx:StorageModels>
-      <Schema Namespace="finaldbModel.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2012" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+    <Schema Namespace="finaldbModel.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2012" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
         <EntityType Name="blog">
           <Key>
             <PropertyRef Name="Blog_ID" />
@@ -199,6 +199,7 @@
           <Property Name="mb_employeeHireDate" Type="date" />
           <Property Name="mb_employeeTransport" Type="nvarchar" MaxLength="50" />
           <Property Name="mb_employeeState" Type="int" />
+          <Property Name="mb_package" Type="int" />
         </EntityType>
         <EntityType Name="MemberGroupOrder">
           <Key>
@@ -708,8 +709,7 @@
             <End Role="productdb" EntitySet="productdb" />
           </AssociationSet>
         </EntityContainer>
-      </Schema>
-    </edmx:StorageModels>
+      </Schema></edmx:StorageModels>
     <!-- CSDL content -->
     <edmx:ConceptualModels>
       <Schema Namespace="finaldbModel" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
@@ -956,6 +956,7 @@
           <NavigationProperty Name="Groupdb" Relationship="Self.FK_Groupdb_memberdb" FromRole="memberdb" ToRole="Groupdb" />
           <NavigationProperty Name="MembersType" Relationship="Self.FK_memberdb_MembersType" FromRole="memberdb" ToRole="MembersType" />
           <NavigationProperty Name="MemberGroupOrder" Relationship="Self.FK_MemberGroupOrderBinding_memberdb" FromRole="memberdb" ToRole="MemberGroupOrder" />
+          <Property Name="mb_package" Type="Int32" />
         </EntityType>
         <EntityType Name="MemberGroupOrder">
           <Key>
@@ -1672,6 +1673,7 @@
           <EntitySetMapping Name="memberdb">
             <EntityTypeMapping TypeName="finaldbModel.memberdb">
               <MappingFragment StoreEntitySet="memberdb">
+                <ScalarProperty Name="mb_package" ColumnName="mb_package" />
                 <ScalarProperty Name="mb_ID" ColumnName="mb_ID" />
                 <ScalarProperty Name="mb_employeeName" ColumnName="mb_employeeName" />
                 <ScalarProperty Name="mb_employeeAccount" ColumnName="mb_employeeAccount" />

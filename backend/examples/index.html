@@ -236,6 +236,12 @@
                     min: 0
                 }
             });
+
+            Chart.scaleService.updateScaleDefaults('line', {
+                ticks: {
+                    min: 0
+                }
+            });
             var ctx = document.getElementById('myChart');
             var myChart = new Chart(ctx, {
                 type: 'bar',

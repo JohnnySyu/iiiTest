@@ -13,9 +13,9 @@ using Newtonsoft.Json.Linq;
 
 namespace forumAPItest.Controllers
 {
-    public class TokenController : ApiController
+    public class PackageTokenController  : ApiController
     {
-        // GET: api/Token
+        // GET: api/PackageToken
         finaldbEntities1 db = new finaldbEntities1();
         public IEnumerable<string> Get()
         {
@@ -45,20 +45,17 @@ namespace forumAPItest.Controllers
             var account = value["account"].ToString();
             var password = value["password"].ToString();
 
-            var q = from p in db.memberdb
-                     where p.mb_employeeAccount == account
-                     select p;
+            
 
-            foreach(var items in q)
-            {
-                if(items.mb_employeeAccount == account && password == "test")
+            
+                if(account == "email" && password == "code")
                 {
                    
                         //var payload = new JwtAuthObject()
-                        var payload = new JwtAuthObject()
+                        var payload = new JwtAuthPackgeObject()
                         {
-                            accId = items.mb_employeeAccount,
-                            pswId = "test"
+                            accId = account,
+                            pswId = "code"
                         };
 
                         return new
@@ -77,14 +74,11 @@ namespace forumAPItest.Controllers
                 }
 
             }
-            return new
-            {
-                Result = false,
-            };
+           
         }
     }
 
     // DELETE: api/Token/5
     
     
-}
+

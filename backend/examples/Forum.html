@@ -145,8 +145,12 @@
                                     <table class="table table-hover table-striped" id="datatable">
                                         <thead>
                                             <form name='form' action='#' method='post' class="formtxt">
-                                                <p id="membertxt" class="marginleft">登入系統人:<br /><input type="text" id="memberedit"
-                                                        placeholder="管理員mb_ID目前設定為12"></p>
+                                                <p class="midcenter" ><label style="margin-right: 2px;"></label>
+                                                    <input type="text" list="browsers" name="myBrowser" id="memberedit" class="inputname"></p>
+                                                    <datalist id="browsers">                               
+                                                    </datalist>
+                                                <!-- <p id="membertxt" class="marginleft">登入系統人:<br /><input type="text" id="memberedit"
+                                                        placeholder="管理員mb_ID目前設定為12"></p> -->
                                                 <br />
                                                 <p class="marginleft">標題:<br /><input type="text" id="titleedit"></p><br />
                                                 <p class="marginleft">內容:
@@ -548,6 +552,25 @@
 
         };
 
+        const idArr = []
+const nameArr = []
+
+$.ajax({
+    url:"https://localhost:44310/api/memberback",
+    type:"GET", headers: { Authorization: 'Bearer ' + localStorage.getItem("Packagetoken") },
+    success:function(response){    
+        response.ftable.forEach((v, i) => 
+        {       
+            idArr[i]=v.id
+            nameArr[i]=v.name
+        });
+        
+    }
+});
+
+
+console.log(idArr)
+
         const sendData = () => {
             if (!document.getElementById("titleedit").value) {
                 alert('請填入標題!');
@@ -557,6 +580,7 @@
             }
             else {
                 sendHttpRequest('post', 'https://localhost:44310/api/forumback', {
+                    "id":idArr[nameArr.indexOf(document.getElementById("memberedit").value)],
                     "title": document.getElementById("titleedit").value,
                     "content": CKEDITOR.instances.contenttxt.getData(),
                     //"member": document.getElementById("memberedit").value,
@@ -574,6 +598,38 @@
             location.href = "login.html"
             localStorage.removeItem("token");
         }
+
+
+        let availableTags;
+const string1=[];
+let selectTags;
+const string2=[];
+
+$.ajax({
+    url:"https://localhost:44310/api/memberback",
+    type:"GET", headers: { Authorization: 'Bearer ' + localStorage.getItem("token") },
+    success:function(response){
+       
+      
+        response.ftable.forEach((v, i) => 
+        {       
+            string1[i]=v.id
+            string2[i]=v.name
+        });
+        selectTags = string2.splice(",");
+        
+        selectTags.forEach(element => 
+        {//console.log(element);
+            document.getElementById('browsers').innerHTML += `<option value="${element}">${element}</option>`
+        });
+    }
+});
+
+function logOut(){
+    localStorage.removeItem("token");
+    location.href="login.html"
+}
+
     </script>
 
 

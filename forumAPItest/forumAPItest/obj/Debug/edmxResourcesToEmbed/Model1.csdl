@@ -243,6 +243,7 @@
     <NavigationProperty Name="Groupdb" Relationship="Self.FK_Groupdb_memberdb" FromRole="memberdb" ToRole="Groupdb" />
     <NavigationProperty Name="MembersType" Relationship="Self.FK_memberdb_MembersType" FromRole="memberdb" ToRole="MembersType" />
     <NavigationProperty Name="MemberGroupOrder" Relationship="Self.FK_MemberGroupOrderBinding_memberdb" FromRole="memberdb" ToRole="MemberGroupOrder" />
+    <Property Name="mb_package" Type="Int32" />
   </EntityType>
   <EntityType Name="MemberGroupOrder">
     <Key>

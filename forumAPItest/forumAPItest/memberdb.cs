@@ -42,6 +42,7 @@ namespace forumAPItest
         public Nullable<System.DateTime> mb_employeeHireDate { get; set; }
         public string mb_employeeTransport { get; set; }
         public Nullable<int> mb_employeeState { get; set; }
+        public Nullable<int> mb_package { get; set; }
     
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<blogBinding> blogBinding { get; set; }
