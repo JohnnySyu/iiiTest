@@ -253,5 +253,42 @@
         </MappingFragment>
       </EntityTypeMapping>
     </EntitySetMapping>
+    <EntitySetMapping Name="memberVoteitem">
+      <EntityTypeMapping TypeName="finaldbModel.memberVoteitem">
+        <MappingFragment StoreEntitySet="memberVoteitem">
+          <ScalarProperty Name="itemsID" ColumnName="itemsID" />
+          <ScalarProperty Name="memberID" ColumnName="memberID" />
+          <ScalarProperty Name="memberVoteID" ColumnName="memberVoteID" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="voteitem">
+      <EntityTypeMapping TypeName="finaldbModel.voteitem">
+        <MappingFragment StoreEntitySet="voteitem">
+          <ScalarProperty Name="titleID" ColumnName="titleID" />
+          <ScalarProperty Name="items" ColumnName="items" />
+          <ScalarProperty Name="itemsID" ColumnName="itemsID" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="voteMember">
+      <EntityTypeMapping TypeName="finaldbModel.voteMember">
+        <MappingFragment StoreEntitySet="voteMember">
+          <ScalarProperty Name="memberNAME" ColumnName="memberNAME" />
+          <ScalarProperty Name="memberID" ColumnName="memberID" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="voteTitle">
+      <EntityTypeMapping TypeName="finaldbModel.voteTitle">
+        <MappingFragment StoreEntitySet="voteTitle">
+          <ScalarProperty Name="memberID" ColumnName="memberID" />
+          <ScalarProperty Name="endTime" ColumnName="endTime" />
+          <ScalarProperty Name="startTime" ColumnName="startTime" />
+          <ScalarProperty Name="title" ColumnName="title" />
+          <ScalarProperty Name="titleID" ColumnName="titleID" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
   </EntityContainerMapping>
 </Mapping>

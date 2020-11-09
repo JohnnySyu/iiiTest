@@ -24,6 +24,7 @@ namespace forumAPItest
             this.forumMemberBinding = new HashSet<forumMemberBinding>();
             this.Groupdb = new HashSet<Groupdb>();
             this.MemberGroupOrder = new HashSet<MemberGroupOrder>();
+            this.voteMember = new HashSet<voteMember>();
         }
     
         public int mb_ID { get; set; }
@@ -60,5 +61,7 @@ namespace forumAPItest
         public virtual MembersType MembersType { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<MemberGroupOrder> MemberGroupOrder { get; set; }
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
+        public virtual ICollection<voteMember> voteMember { get; set; }
     }
 }

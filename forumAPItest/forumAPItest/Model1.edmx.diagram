@@ -57,6 +57,15 @@
         <AssociationConnector Association="finaldbModel.FK_memberdb_MembersType" ManuallyRouted="false" />
         <AssociationConnector Association="finaldbModel.FK_MemberGroupOrderBinding_memberdb" ManuallyRouted="false" />
         <AssociationConnector Association="finaldbModel.FK_productdb_productPictureBinding" ManuallyRouted="false" />
+        <EntityTypeShape EntityType="finaldbModel.memberVoteitem" Width="1.5" PointX="12" PointY="21.125" />
+        <EntityTypeShape EntityType="finaldbModel.voteitem" Width="1.5" PointX="9.75" PointY="22.5" />
+        <EntityTypeShape EntityType="finaldbModel.voteMember" Width="1.5" PointX="5.25" PointY="19.75" />
+        <EntityTypeShape EntityType="finaldbModel.voteTitle" Width="1.5" PointX="7.5" PointY="22.25" />
+        <AssociationConnector Association="finaldbModel.FK_voteMember_memberdb" />
+        <AssociationConnector Association="finaldbModel.FK_memberVoteitem_voteitem" />
+        <AssociationConnector Association="finaldbModel.FK_memberVoteitem_voteMember" />
+        <AssociationConnector Association="finaldbModel.FK_voteitem_voteTitle" />
+        <AssociationConnector Association="finaldbModel.FK_voteTitle_voteMember" />
       </Diagram>
     </edmx:Diagrams>
   </edmx:Designer>

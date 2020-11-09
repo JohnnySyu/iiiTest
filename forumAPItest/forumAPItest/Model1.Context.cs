@@ -49,5 +49,9 @@ namespace forumAPItest
         public virtual DbSet<MembersType> MembersType { get; set; }
         public virtual DbSet<productdb> productdb { get; set; }
         public virtual DbSet<productPictureBinding> productPictureBinding { get; set; }
+        public virtual DbSet<memberVoteitem> memberVoteitem { get; set; }
+        public virtual DbSet<voteitem> voteitem { get; set; }
+        public virtual DbSet<voteMember> voteMember { get; set; }
+        public virtual DbSet<voteTitle> voteTitle { get; set; }
     }
 }

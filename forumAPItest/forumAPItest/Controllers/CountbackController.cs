@@ -17,7 +17,7 @@ namespace forumAPItest.Controllers
     {
         // GET: api/Countback
         finaldbEntities1 db = new finaldbEntities1();
-        [JwtAuthActionFilte]
+        //[JwtAuthActionFilte]
         public JObject Get()
         {
             var fblogmemberCount = from p in db.blogBinding

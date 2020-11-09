@@ -16,7 +16,7 @@ namespace forumAPItest.Controllers
         // GET: api/mbPackage
         finaldbEntities1 db = new finaldbEntities1();
        
-        
+        [JwtAuthPackageFilte]
         public JObject Get()
         {
             var ftable = from n in db.memberdb

@@ -244,6 +244,7 @@
     <NavigationProperty Name="MembersType" Relationship="Self.FK_memberdb_MembersType" FromRole="memberdb" ToRole="MembersType" />
     <NavigationProperty Name="MemberGroupOrder" Relationship="Self.FK_MemberGroupOrderBinding_memberdb" FromRole="memberdb" ToRole="MemberGroupOrder" />
     <Property Name="mb_package" Type="Int32" />
+    <NavigationProperty Name="voteMember" Relationship="finaldbModel.FK_voteMember_memberdb" FromRole="memberdb" ToRole="voteMember" />
   </EntityType>
   <EntityType Name="MemberGroupOrder">
     <Key>
@@ -759,5 +760,131 @@
       <End Role="productPictureBinding" EntitySet="productPictureBinding" />
       <End Role="productdb" EntitySet="productdb" />
     </AssociationSet>
+    <EntitySet Name="memberVoteitem" EntityType="finaldbModel.memberVoteitem" />
+    <EntitySet Name="voteitem" EntityType="finaldbModel.voteitem" />
+    <EntitySet Name="voteMember" EntityType="finaldbModel.voteMember" />
+    <EntitySet Name="voteTitle" EntityType="finaldbModel.voteTitle" />
+    <AssociationSet Name="FK_voteMember_memberdb" Association="finaldbModel.FK_voteMember_memberdb">
+      <End Role="memberdb" EntitySet="memberdb" />
+      <End Role="voteMember" EntitySet="voteMember" />
+    </AssociationSet>
+    <AssociationSet Name="FK_memberVoteitem_voteitem" Association="finaldbModel.FK_memberVoteitem_voteitem">
+      <End Role="voteitem" EntitySet="voteitem" />
+      <End Role="memberVoteitem" EntitySet="memberVoteitem" />
+    </AssociationSet>
+    <AssociationSet Name="FK_memberVoteitem_voteMember" Association="finaldbModel.FK_memberVoteitem_voteMember">
+      <End Role="voteMember" EntitySet="voteMember" />
+      <End Role="memberVoteitem" EntitySet="memberVoteitem" />
+    </AssociationSet>
+    <AssociationSet Name="FK_voteitem_voteTitle" Association="finaldbModel.FK_voteitem_voteTitle">
+      <End Role="voteTitle" EntitySet="voteTitle" />
+      <End Role="voteitem" EntitySet="voteitem" />
+    </AssociationSet>
+    <AssociationSet Name="FK_voteTitle_voteMember" Association="finaldbModel.FK_voteTitle_voteMember">
+      <End Role="voteMember" EntitySet="voteMember" />
+      <End Role="voteTitle" EntitySet="voteTitle" />
+    </AssociationSet>
   </EntityContainer>
+  <EntityType Name="memberVoteitem">
+    <Key>
+      <PropertyRef Name="memberVoteID" />
+    </Key>
+    <Property Name="memberVoteID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="memberID" Type="Int32" />
+    <Property Name="itemsID" Type="Int32" />
+    <NavigationProperty Name="voteitem" Relationship="finaldbModel.FK_memberVoteitem_voteitem" FromRole="memberVoteitem" ToRole="voteitem" />
+    <NavigationProperty Name="voteMember" Relationship="finaldbModel.FK_memberVoteitem_voteMember" FromRole="memberVoteitem" ToRole="voteMember" />
+  </EntityType>
+  <EntityType Name="voteitem">
+    <Key>
+      <PropertyRef Name="itemsID" />
+    </Key>
+    <Property Name="itemsID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="items" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+    <Property Name="titleID" Type="Int32" />
+    <NavigationProperty Name="memberVoteitem" Relationship="finaldbModel.FK_memberVoteitem_voteitem" FromRole="voteitem" ToRole="memberVoteitem" />
+    <NavigationProperty Name="voteTitle" Relationship="finaldbModel.FK_voteitem_voteTitle" FromRole="voteitem" ToRole="voteTitle" />
+  </EntityType>
+  <EntityType Name="voteMember">
+    <Key>
+      <PropertyRef Name="memberID" />
+    </Key>
+    <Property Name="memberID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="memberNAME" Type="Int32" />
+    <NavigationProperty Name="memberdb" Relationship="finaldbModel.FK_voteMember_memberdb" FromRole="voteMember" ToRole="memberdb" />
+    <NavigationProperty Name="memberVoteitem" Relationship="finaldbModel.FK_memberVoteitem_voteMember" FromRole="voteMember" ToRole="memberVoteitem" />
+    <NavigationProperty Name="voteTitle" Relationship="finaldbModel.FK_voteTitle_voteMember" FromRole="voteMember" ToRole="voteTitle" />
+  </EntityType>
+  <EntityType Name="voteTitle">
+    <Key>
+      <PropertyRef Name="titleID" />
+    </Key>
+    <Property Name="titleID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="title" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+    <Property Name="startTime" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+    <Property Name="endTime" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+    <Property Name="memberID" Type="Int32" />
+    <NavigationProperty Name="voteitem" Relationship="finaldbModel.FK_voteitem_voteTitle" FromRole="voteTitle" ToRole="voteitem" />
+    <NavigationProperty Name="voteMember" Relationship="finaldbModel.FK_voteTitle_voteMember" FromRole="voteTitle" ToRole="voteMember" />
+  </EntityType>
+  <Association Name="FK_voteMember_memberdb">
+    <End Type="finaldbModel.memberdb" Role="memberdb" Multiplicity="0..1" />
+    <End Type="finaldbModel.voteMember" Role="voteMember" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="memberdb">
+        <PropertyRef Name="mb_ID" />
+      </Principal>
+      <Dependent Role="voteMember">
+        <PropertyRef Name="memberNAME" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_memberVoteitem_voteitem">
+    <End Type="finaldbModel.voteitem" Role="voteitem" Multiplicity="0..1" />
+    <End Type="finaldbModel.memberVoteitem" Role="memberVoteitem" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="voteitem">
+        <PropertyRef Name="itemsID" />
+      </Principal>
+      <Dependent Role="memberVoteitem">
+        <PropertyRef Name="itemsID" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_memberVoteitem_voteMember">
+    <End Type="finaldbModel.voteMember" Role="voteMember" Multiplicity="0..1" />
+    <End Type="finaldbModel.memberVoteitem" Role="memberVoteitem" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="voteMember">
+        <PropertyRef Name="memberID" />
+      </Principal>
+      <Dependent Role="memberVoteitem">
+        <PropertyRef Name="memberID" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_voteitem_voteTitle">
+    <End Type="finaldbModel.voteTitle" Role="voteTitle" Multiplicity="0..1" />
+    <End Type="finaldbModel.voteitem" Role="voteitem" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="voteTitle">
+        <PropertyRef Name="titleID" />
+      </Principal>
+      <Dependent Role="voteitem">
+        <PropertyRef Name="titleID" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_voteTitle_voteMember">
+    <End Type="finaldbModel.voteMember" Role="voteMember" Multiplicity="0..1" />
+    <End Type="finaldbModel.voteTitle" Role="voteTitle" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="voteMember">
+        <PropertyRef Name="memberID" />
+      </Principal>
+      <Dependent Role="voteTitle">
+        <PropertyRef Name="memberID" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
 </Schema>
