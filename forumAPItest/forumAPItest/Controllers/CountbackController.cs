@@ -17,6 +17,7 @@ namespace forumAPItest.Controllers
     {
         // GET: api/Countback
         finaldbEntities1 db = new finaldbEntities1();
+        final_pEntities pdb = new final_pEntities();
         //[JwtAuthActionFilte]
         public JObject Get()
         {
@@ -54,9 +55,19 @@ namespace forumAPItest.Controllers
                                       Count = g.Count()
                                   };
 
-            
 
 
+
+
+            var fpgroupCount = (from q in pdb.pGroupdb
+                                select q).Count();
+
+            var fvotetitleCount = (from q in db.voteTitle
+                                   where q.title != "delete"
+                                   select q).Count();
+
+            var empCount = (from q in db.memberdb
+                            select q).Count();
 
             var result = new
             {
@@ -64,7 +75,9 @@ namespace forumAPItest.Controllers
                 fmemberCount,
                 ffourmTypeCount,
                 fforumTimeCount,
-
+                fpgroupCount,
+                fvotetitleCount,
+                empCount
             };
 
             string strJson = JsonConvert.SerializeObject(result, Formatting.Indented);

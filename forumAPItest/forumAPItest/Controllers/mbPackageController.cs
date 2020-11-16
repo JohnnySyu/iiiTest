@@ -70,10 +70,11 @@ namespace forumAPItest.Controllers
         {
             string controllerName = ControllerContext.RouteData.Values["controller"].ToString();
             var PutMemberPackage = db.memberdb.FirstOrDefault(p => p.mb_ID == putID);
-            var package = value["packageNumber"].ToString();                    
-            PutMemberPackage.mb_package = int.Parse(package);
-
+            var package = value["packageNumber"].ToString();
+              PutMemberPackage.mb_package = int.Parse(package);
+           // PutMemberPackage.mb_package = 13;
             db.SaveChanges();
+            //db.SaveChanges();
             var result = new
             {
                 STATUS = true,
