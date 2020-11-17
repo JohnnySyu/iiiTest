@@ -15,14 +15,15 @@
     <title>Document</title>
 </head>
 <style>
+    
     /* .scontainer{      
         display: flex;
         flex-direction:row
         
     } */
     .row{
-        flex-wrap :wrap
-        
+        flex-wrap :wrap;
+       
         
     }
     .card{
@@ -39,9 +40,17 @@
         margin-top: 5px;       
     }
     .addArea{
+        background-color: #D2E9FF;
+        background-image: url("../assets/img/adsss1140-min.jpg");
+        display: flex;
+        justify-content:center;
+        width: 100%;
+        margin: 0 auto;
         padding-bottom: 10px;
         padding-top: 10px;
-        border-bottom: solid;
+        margin-bottom: 10px;
+        box-shadow:2px 5px 6px #000;
+        
     }
     .votePic{
         margin-top: 10px;
@@ -73,29 +82,41 @@ display: none;
     opacity: 0.3;
 }
 
+button, .submitItems {
+    border-radius: 5px;
+    
+}
+
+.vote_btn{
+    margin-top: 5px;
+    border-radius: 20%;
+}
+
 
     
 </style>
 <body>
     <div class="content">
-        <div class="container">
-            <div class="addArea">
+        <div class="container"> 
                <div class="row" >
+                 <div class="addArea" >
                     <div style="margin-right: 10px;">
-                        <p>投票主題: <input type="text" id="voteTitle" /></p>
-                        <p>結束日期: <input type="date" id="voteendDate" min="2020-11-05" /></p>
-                        <p>結束時間: <input type="time" id="voteendTime" 
+                        <p><i class="fas fa-chart-bar"></i>投票主題: <input type="text" id="voteTitle" /></p>
+                        <p><i class="far fa-calendar-plus"></i>結束日期: <input type="date" id="voteendDate" min="2020-11-05" /></p>
+                        <p><i class="far fa-clock"></i>結束時間: <input type="time" id="voteendTime" 
                             min="14:00"  /></p>
+                        <button id="btncut" onclick="cutField()"><i class="fas fa-redo" style="margin-right: 3px;"></i>重設</button> 
+                        <input type="submit" id="btnsubmit" onclick="submit()" class="submitItems" value="送出投票主題與選項"/>
                     </div>
                     <div class="coloum_addtitle">
-                    <button id="btnadd" onclick="addField()" style="margin-bottom: 5px;">新增投票欄位</button>    
-                    <button id="btncut" onclick="cutField()">刪除投票欄位</button>          
+                    <button id="btnadd" onclick="addField()" style="margin-bottom: 5px;"><i class="fas fa-plus" style="margin-right: 3px;"></i>新增選項</button>    
+                           
                     <div id="textinput"></div>                         
-                    <input type="submit" id="btnsubmit" onclick="submit()" class="submitItems" value="送出投票主題與選項"/>
+                    
                     </div>
                 </div>
             </div>
-            <div class="votePic">
+            <div class="votePic" >
                 <div class="row" id="test">  
             </div>                          
     </div>
@@ -150,7 +171,7 @@ bookdate.placeholder = bookdate.min;
                                     <div class="vote_col col-sm-4 col-md-4 col-lg-4">   
                                         <form id="items${i.titleID}" >
                                         </form> 
-                                        <input class="vote_btn vote_btn${i.dateline} " id="input_${i.titleID}_${i.dateline}" type="submit" onclick=" 
+                                        <input class="vote_btn vote_btn${i.dateline} " id="input_${i.titleID}_${i.dateline}" type="submit" value="送出" onclick=" 
                                         itemsSubmit(${i.titleID})
                                         "
                                          > 
