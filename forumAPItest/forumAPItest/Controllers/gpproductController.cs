@@ -18,8 +18,8 @@ namespace forumAPItest.Controllers
         {
             var result = new
             {
-                gptable = from n in db.Group_Product_Binding
-                          orderby n.pGroupdb.Group_StartDate descending
+                gptable = from n in db.Group_Product_Binding.AsEnumerable()
+                          orderby n.pGroupdb.Group_StartDate 
                           select new
                           {
                               groupid = n.Groupid,
@@ -29,7 +29,8 @@ namespace forumAPItest.Controllers
                               productcurrentnum = n.pProductdb.Product_currentnum,
                               productrestnumber = n.pProductdb.Product_restnumber,
                               productdescription = n.pProductdb.Product_description,
-                              productpictureurl = n.pProductdb.Picturebyte
+                              productpictureurl = n.pProductdb.Picturebyte,
+                              countdown = Math.Floor(((DateTime.Parse(n.pGroupdb.Group_EndDate) - DateTime.Now).TotalDays))
                           }
 
             };
@@ -43,7 +44,7 @@ namespace forumAPItest.Controllers
         {
             var result = new
             {
-                gptable = from n in db.Group_Product_Binding
+                gptable = from n in db.Group_Product_Binding.AsEnumerable()
                           where n.Groupid == id
                           select new
                           {
@@ -54,7 +55,8 @@ namespace forumAPItest.Controllers
                               productcurrentnum = n.pProductdb.Product_currentnum,
                               productrestnumber = n.pProductdb.Product_restnumber,
                               productdescription = n.pProductdb.Product_description,
-                              productpictureurl = n.pProductdb.Picturebyte
+                              productpictureurl = n.pProductdb.Picturebyte,
+                              countdown = Math.Floor(((DateTime.Parse(n.pGroupdb.Group_EndDate) - DateTime.Now).TotalDays))
                           }
 
             };

@@ -21,6 +21,7 @@ namespace forumAPItest.Controllers
             {
 
                 gtable = from n in db.pGroupdb.AsEnumerable()
+                         orderby n.Group_EndDate 
                          where DateTime.Compare(DateTime.Parse(n.Group_EndDate), DateTime.Now) > 0
                          select new
                          {

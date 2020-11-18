@@ -181,15 +181,13 @@ namespace forumAPItest.Controllers
         {
             try
             {
-                string controllerName = ControllerContext.RouteData.Values["controller"].ToString();
-                cJsonModels model = new cJsonModels();
-                forumContent q = new forumContent();
+                string controllerName = ControllerContext.RouteData.Values["controller"].ToString();                forumContent q = new forumContent();
                 forumBinding p = new forumBinding();
                 forumMemberBinding m = new forumMemberBinding();
                 
                 //JObject jo = JObject.Parse(value);
 
-                m.ForumTypeID = 1;
+                m.ForumTypeID = int.Parse(value["type"].ToString());
                 m.mb_ID = int.Parse(value["id"].ToString());
                 db.forumMemberBinding.Add(m);
                 db.SaveChanges();
